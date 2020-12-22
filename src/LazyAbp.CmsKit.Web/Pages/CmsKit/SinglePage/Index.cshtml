@@ -1,0 +1,51 @@
+@page
+@using LazyAbp.CmsKit.Permissions
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@using LazyAbp.CmsKit.Web.Pages.CmsKit.SinglePage
+@using LazyAbp.CmsKit.Localization
+@using LazyAbp.CmsKit.Web.Menus
+@model IndexModel
+@inject IPageLayout PageLayout
+@inject IHtmlLocalizer<CmsKitResource> L
+@inject IAuthorizationService Authorization
+@{
+    PageLayout.Content.Title = L["SinglePage"].Value;
+    PageLayout.Content.BreadCrumb.Add(L["Menu:SinglePage"].Value);
+    PageLayout.Content.MenuItemName = CmsKitMenus.SinglePage;
+}
+
+@section scripts
+{
+    <abp-script src="/Pages/CmsKit/SinglePage/index.js" />
+}
+@section styles
+{
+    <abp-style src="/Pages/CmsKit/SinglePage/index.css"/>
+}
+
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@L["SinglePage"]</abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-right">
+
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="SinglePageTable" class="nowrap">
+            <thead>
+            <tr>
+                <th>@L["Actions"]</th>
+                <th>@L["SinglePageTitle"]</th>
+                <th>@L["SinglePageThumbnail"]</th>
+                <th>@L["SinglePageFullDescription"]</th>
+            </tr>
+            </thead>
+        </abp-table>
+    </abp-card-body>
+</abp-card>
