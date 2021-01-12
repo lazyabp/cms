@@ -96,6 +96,7 @@ namespace LazyAbp.CmsKit
 
         public Article(
             Guid id,
+            Guid? tenantId,
             Guid userId,
             string title,
             string origin,
@@ -106,6 +107,7 @@ namespace LazyAbp.CmsKit
             string video
         ) : base(id)
         {
+            TenantId = tenantId;
             UserId = userId;
             Title = title;
             Origin = origin;

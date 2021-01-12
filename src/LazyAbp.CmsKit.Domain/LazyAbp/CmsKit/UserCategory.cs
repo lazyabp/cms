@@ -24,11 +24,13 @@ namespace LazyAbp.CmsKit
 
         public UserCategory(
             Guid id,
+            Guid? tenantId,
             Guid userId,
             string name,
             int displayOrder
         ) : base(id)
         {
+            TenantId = tenantId;
             UserId = userId;
             Name = name;
             DisplayOrder = displayOrder;

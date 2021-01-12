@@ -113,7 +113,7 @@ namespace LazyAbp.CmsKit
 
         public async Task<ArticleDto> CreateAsync(CreateUpdateArticleDto input)
         {
-            var article = new Article(GuidGenerator.Create(), CurrentUser.GetId(), input.Title, input.Origin, input.Auth, input.Thumbnail, input.Descritpion, input.File, input.Video);
+            var article = new Article(GuidGenerator.Create(), CurrentTenant.Id, CurrentUser.GetId(), input.Title, input.Origin, input.Auth, input.Thumbnail, input.Descritpion, input.File, input.Video);
 
             article.SetHits(input.HitCount);
             article.SetLikes(input.LikeCount);

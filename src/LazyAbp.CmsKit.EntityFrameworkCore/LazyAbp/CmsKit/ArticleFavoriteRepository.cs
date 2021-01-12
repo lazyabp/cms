@@ -18,6 +18,7 @@ namespace LazyAbp.CmsKit
         }
 
         public async Task CreateAsync(
+            Guid? tenantId,
             Guid userId, 
             Guid articleId, 
             CancellationToken cancellationToken = default)
@@ -29,7 +30,7 @@ namespace LazyAbp.CmsKit
             if (result != null)
                 throw new Exception("HasBeenAddedToFavorite");
 
-            await InsertAsync(new ArticleFavorite(GuidGenerator.Create(), userId, articleId),
+            await InsertAsync(new ArticleFavorite(GuidGenerator.Create(), tenantId, userId, articleId),
                     cancellationToken: GetCancellationToken(cancellationToken));
         }
 

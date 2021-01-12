@@ -18,6 +18,7 @@ namespace LazyAbp.CmsKit
         }
 
         public async Task CreateAsync(
+            Guid? tenantId,
             Guid userId, 
             Guid articleId, 
             bool like, 
@@ -30,7 +31,7 @@ namespace LazyAbp.CmsKit
             if (result != null)
                 throw new Exception("HasBeenSetLike");
 
-            await InsertAsync(new ArticleLike(GuidGenerator.Create(), userId, articleId, like),
+            await InsertAsync(new ArticleLike(GuidGenerator.Create(), tenantId, userId, articleId, like),
                     cancellationToken: GetCancellationToken(cancellationToken));
         }
 

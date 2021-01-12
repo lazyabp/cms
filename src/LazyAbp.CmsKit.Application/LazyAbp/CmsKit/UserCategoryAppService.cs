@@ -46,7 +46,7 @@ namespace LazyAbp.CmsKit
         [Authorize]
         public async Task<UserCategoryDto> CreateAsync(CreateUpdateUserCategoryDto input)
         {
-            var category = new UserCategory(GuidGenerator.Create(), CurrentUser.GetId(), input.Name, input.DisplayOrder);
+            var category = new UserCategory(GuidGenerator.Create(), CurrentTenant.Id, CurrentUser.GetId(), input.Name, input.DisplayOrder);
             category = await _repository.InsertAsync(category);
 
             return ObjectMapper.Map<UserCategory, UserCategoryDto>(category);

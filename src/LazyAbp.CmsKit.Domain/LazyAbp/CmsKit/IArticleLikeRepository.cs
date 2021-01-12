@@ -8,7 +8,7 @@ namespace LazyAbp.CmsKit
 {
     public interface IArticleLikeRepository : IRepository<ArticleLike, Guid>
     {
-        Task CreateAsync(Guid userId, Guid articleId, bool like, CancellationToken cancellationToken = default);
+        Task CreateAsync(Guid? tenantId, Guid userId, Guid articleId, bool like, CancellationToken cancellationToken = default);
 
         Task RemoveAsync(Guid userId, Guid articleId, bool like, CancellationToken cancellationToken = default);
 

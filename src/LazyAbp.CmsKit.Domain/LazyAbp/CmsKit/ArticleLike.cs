@@ -23,12 +23,14 @@ namespace LazyAbp.CmsKit
         }
 
         public ArticleLike(
-            Guid id, 
+            Guid id,
+            Guid? tenantId,
             Guid userId, 
             Guid articleId,
             bool likeOrDislike
         ) : base(id)
         {
+            TenantId = tenantId;
             UserId = userId;
             ArticleId = articleId;
             LikeOrDislike = likeOrDislike;

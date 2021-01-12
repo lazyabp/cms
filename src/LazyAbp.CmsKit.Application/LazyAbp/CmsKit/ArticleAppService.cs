@@ -102,7 +102,7 @@ namespace LazyAbp.CmsKit
         {
             try
             {
-                await _articleLikeRepository.CreateAsync(CurrentUser.GetId(), id, true);
+                await _articleLikeRepository.CreateAsync(CurrentTenant.Id, CurrentUser.GetId(), id, true);
 
                 var article = await _repository.GetAsync(id, false);
                 article.SetLikes(article.LikeCount + 1);
@@ -138,7 +138,7 @@ namespace LazyAbp.CmsKit
         {
             try
             {
-                await _articleLikeRepository.CreateAsync(CurrentUser.GetId(), id, false);
+                await _articleLikeRepository.CreateAsync(CurrentTenant.Id, CurrentUser.GetId(), id, false);
 
                 var article = await _repository.GetAsync(id, false);
                 article.SetLikes(article.DislikeCount + 1);
@@ -174,7 +174,7 @@ namespace LazyAbp.CmsKit
         {
             try
             {
-                await _articleFavoriteRepository.CreateAsync(CurrentUser.GetId(), id);
+                await _articleFavoriteRepository.CreateAsync(CurrentTenant.Id, CurrentUser.GetId(), id);
 
                 var article = await _repository.GetAsync(id, false);
                 article.SetFavorites(article.FavoriteCount + 1);

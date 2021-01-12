@@ -57,7 +57,8 @@ namespace LazyAbp.CmsKit
         }
 
         public ArticleComment(
-            Guid id, 
+            Guid id,
+            Guid? tenantId,
             Guid userId, 
             Guid articleId, 
             Guid parentId, 
@@ -66,6 +67,7 @@ namespace LazyAbp.CmsKit
             string userAgent
         ) : base(id)
         {
+            TenantId = tenantId;
             UserId = userId;
             ArticleId = articleId;
             ParentId = parentId;

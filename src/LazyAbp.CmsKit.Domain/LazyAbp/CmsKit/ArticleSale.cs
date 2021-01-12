@@ -29,13 +29,15 @@ namespace LazyAbp.CmsKit
         }
 
         public ArticleSale(
-            Guid id, 
+            Guid id,
+            Guid? tenantId,
             Guid userId, 
             Guid articleId, 
             decimal salePrice, 
             string articleTitle
         ) : base(id)
         {
+            TenantId = tenantId;
             UserId = userId;
             ArticleId = articleId;
             SalePrice = salePrice;

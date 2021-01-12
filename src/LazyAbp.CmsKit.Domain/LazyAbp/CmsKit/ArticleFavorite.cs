@@ -21,11 +21,13 @@ namespace LazyAbp.CmsKit
         }
 
         public ArticleFavorite(
-            Guid id, 
+            Guid id,
+            Guid? tenantId,
             Guid userId, 
             Guid articleId
         ) : base(id)
         {
+            TenantId = tenantId;
             UserId = userId;
             ArticleId = articleId;
         }
