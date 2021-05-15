@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  
+  <Import Project="..\..\common.props" />
+  
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Lazy.Abp.Cms.Admin.Application.Contracts\Lazy.Abp.Cms.Admin.Application.Contracts.csproj" />
+    <ProjectReference Include="..\Lazy.Abp.Cms.Domain\Lazy.Abp.Cms.Domain.csproj" />
+    <PackageReference Include="Volo.Abp.AutoMapper" Version="$(AbpVersion)" />
+    <PackageReference Include="Volo.Abp.Caching" Version="$(AbpVersion)" />
+  </ItemGroup>
+
+</Project>

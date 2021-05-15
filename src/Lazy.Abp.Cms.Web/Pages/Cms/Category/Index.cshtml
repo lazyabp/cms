@@ -1,0 +1,54 @@
+@page
+@using Lazy.Abp.Cms.Permissions
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@using Lazy.Abp.Cms.Web.Pages.Cms.Category
+@using Lazy.Abp.Cms.Localization
+@using Lazy.Abp.Cms.Web.Menus
+@model IndexModel
+@inject IPageLayout PageLayout
+@inject IHtmlLocalizer<CmsResource> L
+@inject IAuthorizationService Authorization
+@{
+    PageLayout.Content.Title = L["Category"].Value;
+    PageLayout.Content.BreadCrumb.Add(L["Menu:Category"].Value);
+    PageLayout.Content.MenuItemName = CmsMenus.Category;
+}
+
+@section scripts
+{
+    <abp-script src="/Pages/Cms/Category/index.js" />
+}
+@section styles
+{
+    <abp-style src="/Pages/Cms/Category/index.css"/>
+}
+
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@L["Category"]</abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-right">
+
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="CategoryTable" class="nowrap">
+            <thead>
+            <tr>
+                <th>@L["Actions"]</th>
+                <th>@L["CategoryName"]</th>
+                <th>@L["CategoryLabel"]</th>
+                <th>@L["CategoryLevel"]</th>
+                <th>@L["CategoryRootId"]</th>
+                <th>@L["CategoryParentId"]</th>
+                <th>@L["CategoryPath"]</th>
+            </tr>
+            </thead>
+        </abp-table>
+    </abp-card-body>
+</abp-card>

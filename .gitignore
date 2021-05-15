@@ -251,8 +251,8 @@ paket-files/
 .idea/
 *.sln.iml
 
-# CmsKit
-host/LazyAbp.CmsKit.IdentityServer/Logs/logs.txt
-host/LazyAbp.CmsKit.HttpApi.Host/Logs/logs.txt
-host/LazyAbp.CmsKit.Web.Host/Logs/logs.txt
-host/LazyAbp.CmsKit.Web.Unified/Logs/logs.txt
+# Cms
+host/Lazy.Abp.Cms.IdentityServer/Logs/logs.txt
+host/Lazy.Abp.Cms.HttpApi.Host/Logs/logs.txt
+host/Lazy.Abp.Cms.Web.Host/Logs/logs.txt
+host/Lazy.Abp.Cms.Web.Unified/Logs/logs.txt

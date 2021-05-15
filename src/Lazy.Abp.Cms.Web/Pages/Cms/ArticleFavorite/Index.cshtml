@@ -1,0 +1,51 @@
+@page
+@using Lazy.Abp.Cms.Permissions
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@using Lazy.Abp.Cms.Web.Pages.Cms.ArticleFavorite
+@using Lazy.Abp.Cms.Localization
+@using Lazy.Abp.Cms.Web.Menus
+@model IndexModel
+@inject IPageLayout PageLayout
+@inject IHtmlLocalizer<CmsResource> L
+@inject IAuthorizationService Authorization
+@{
+    PageLayout.Content.Title = L["ArticleFavorite"].Value;
+    PageLayout.Content.BreadCrumb.Add(L["Menu:ArticleFavorite"].Value);
+    PageLayout.Content.MenuItemName = CmsMenus.ArticleFavorite;
+}
+
+@section scripts
+{
+    <abp-script src="/Pages/Cms/ArticleFavorite/index.js" />
+}
+@section styles
+{
+    <abp-style src="/Pages/Cms/ArticleFavorite/index.css"/>
+}
+
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@L["ArticleFavorite"]</abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-right">
+
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="ArticleFavoriteTable" class="nowrap">
+            <thead>
+            <tr>
+                <th>@L["Actions"]</th>
+                <th>@L["ArticleFavoriteUserId"]</th>
+                <th>@L["ArticleFavoriteArticleId"]</th>
+                <th>@L["ArticleFavoriteArticle"]</th>
+            </tr>
+            </thead>
+        </abp-table>
+    </abp-card-body>
+</abp-card>
