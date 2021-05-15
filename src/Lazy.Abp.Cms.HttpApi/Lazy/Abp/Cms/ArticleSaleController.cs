@@ -1,8 +1,7 @@
-﻿using Lazy.Abp.Cms.Dtos;
+﻿using Lazy.Abp.Cms.ArticleSales;
+using Lazy.Abp.Cms.ArticleSales.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
@@ -11,9 +10,9 @@ using Volo.Abp.AspNetCore.Mvc;
 namespace Lazy.Abp.Cms
 {
     [RemoteService(Name = CmsRemoteServiceConsts.RemoteServiceName)]
-    [Area("cmskit")]
+    [Area("cms")]
     [ControllerName("ArticleSale")]
-    [Route("api/cmskit/article-sales")]
+    [Route("api/cms/article-sales")]
     public class ArticleSaleController : AbpController, IArticleSaleAppService
     {
         private readonly IArticleSaleAppService _service;

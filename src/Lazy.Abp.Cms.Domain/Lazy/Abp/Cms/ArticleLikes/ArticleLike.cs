@@ -1,21 +1,22 @@
+using Lazy.Abp.Cms.Articles;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
-namespace Lazy.Abp.Cms
+namespace Lazy.Abp.Cms.ArticleLikes
 {
     public class ArticleLike : CreationAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; }
 
-        public Guid UserId { get; protected set; }
-
         public Guid ArticleId { get; protected set; }
 
         public bool LikeOrDislike { get; protected set; }
 
+        [ForeignKey("ArticleId")]
         public virtual Article Article { get; set; }
 
         protected ArticleLike()
@@ -25,13 +26,11 @@ namespace Lazy.Abp.Cms
         public ArticleLike(
             Guid id,
             Guid? tenantId,
-            Guid userId, 
             Guid articleId,
             bool likeOrDislike
         ) : base(id)
         {
             TenantId = tenantId;
-            UserId = userId;
             ArticleId = articleId;
             LikeOrDislike = likeOrDislike;
         }

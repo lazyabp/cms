@@ -1,8 +1,7 @@
-﻿using Lazy.Abp.Cms.Dtos;
+﻿using Lazy.Abp.Cms.Articles;
+using Lazy.Abp.Cms.Articles.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
@@ -11,9 +10,9 @@ using Volo.Abp.AspNetCore.Mvc;
 namespace Lazy.Abp.Cms
 {
     [RemoteService(Name = CmsRemoteServiceConsts.RemoteServiceName)]
-    [Area("cmskit")]
+    [Area("cms")]
     [ControllerName("Article")]
-    [Route("api/cmskit/articles")]
+    [Route("api/cms/articles")]
     public class ArticleController : AbpController, IArticleAppService
     {
         private readonly IArticleAppService _service;
@@ -25,34 +24,34 @@ namespace Lazy.Abp.Cms
 
         [HttpGet]
         [Route("{id}")]
-        public Task<ArticleViewDto> GetAsync(Guid id)
+        public Task<ArticleDto> GetAsync(Guid id)
         {
             return _service.GetAsync(id);
         }
 
         [HttpGet]
         [Route("{id}/content")]
-        public Task<string> GetContentAsync(Guid id, string key)
+        public Task<ArticleContentDto> GetContentAsync(Guid id)
         {
-            return _service.GetContentAsync(id, key);
+            return _service.GetContentAsync(id);
         }
 
         [HttpGet]
-        public Task<PagedResultDto<ArticleViewDto>> GetListAsync(GetArticleListRequestDto input)
+        public Task<PagedResultDto<ArticleDto>> GetListAsync(GetArticleListRequestDto input)
         {
             return _service.GetListAsync(input);
         }
 
         [HttpGet]
         [Route("by-tag/{tag}")]
-        public Task<PagedResultDto<ArticleViewDto>> GetListByTagAsync(string tag)
+        public Task<PagedResultDto<ArticleDto>> GetListByTagAsync(string tag)
         {
             return _service.GetListByTagAsync(tag);
         }
 
         [HttpGet]
         [Route("by-tag-id/{id}")]
-        public Task<PagedResultDto<ArticleViewDto>> GetListByTagIdAsync(Guid id)
+        public Task<PagedResultDto<ArticleDto>> GetListByTagIdAsync(Guid id)
         {
             return _service.GetListByTagIdAsync(id);
         }
@@ -84,43 +83,43 @@ namespace Lazy.Abp.Cms
             return _service.IncHits(id);
         }
 
-        [HttpPut]
-        [Route("{id}/like/add")]
+        [HttpPost]
+        [Route("{id}/like")]
         public Task<int> AddLike(Guid id)
         {
             return _service.AddLike(id);
         }
 
-        [HttpPut]
-        [Route("{id}/like/remove")]
+        [HttpDelete]
+        [Route("{id}/like")]
         public Task<int> RemoveLike(Guid id)
         {
             return _service.RemoveLike(id);
         }
 
-        [HttpPut]
-        [Route("{id}/dislike/add")]
+        [HttpPost]
+        [Route("{id}/dislike")]
         public Task<int> AddDislike(Guid id)
         {
             return _service.AddDislike(id);
         }
 
-        [HttpPut]
-        [Route("{id}/dislike/remove")]
+        [HttpDelete]
+        [Route("{id}/dislike")]
         public Task<int> RemoveDislike(Guid id)
         {
             return _service.RemoveDislike(id);
         }
 
-        [HttpPut]
-        [Route("{id}/favorite/add")]
+        [HttpPost]
+        [Route("{id}/favorite")]
         public Task<int> AddFavorite(Guid id)
         {
             return _service.AddFavorite(id);
         }
 
-        [HttpPut]
-        [Route("{id}/favorite/remove")]
+        [HttpDelete]
+        [Route("{id}/favorite")]
         public Task<int> RemoveFavorite(Guid id)
         {
             return _service.RemoveFavorite(id);

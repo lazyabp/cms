@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 
-namespace Lazy.Abp.Cms
+namespace Lazy.Abp.Cms.SinglePages
 {
     public class SinglePageRepository : EfCoreRepository<ICmsDbContext, SinglePage, Guid>, ISinglePageRepository
     {
@@ -29,7 +29,7 @@ namespace Lazy.Abp.Cms
             DateTime? createdBefore = null, 
             string filter = null, 
             CancellationToken cancellationToken = default
-            )
+        )
         {
             var query = await GetListQuery(createdAfter, createdBefore, filter);
 

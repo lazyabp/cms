@@ -1,8 +1,8 @@
-﻿using Lazy.Abp.Cms.Dtos;
+﻿using Lazy.Abp.Cms.Categories;
+using Lazy.Abp.Cms.Categories.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
@@ -11,9 +11,9 @@ using Volo.Abp.AspNetCore.Mvc;
 namespace Lazy.Abp.Cms
 {
     [RemoteService(Name = CmsRemoteServiceConsts.RemoteServiceName)]
-    [Area("cmskit")]
+    [Area("cms")]
     [ControllerName("Category")]
-    [Route("api/cmskit/categories")]
+    [Route("api/cms/categories")]
     public class CategoryController : AbpController, ICategoryAppService
     {
         private readonly ICategoryAppService _service;

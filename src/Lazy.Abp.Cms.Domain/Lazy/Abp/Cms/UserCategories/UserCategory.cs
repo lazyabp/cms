@@ -5,7 +5,7 @@ using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
-namespace Lazy.Abp.Cms
+namespace Lazy.Abp.Cms.UserCategories
 {
     public class UserCategory : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {

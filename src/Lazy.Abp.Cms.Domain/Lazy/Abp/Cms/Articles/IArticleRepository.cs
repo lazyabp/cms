@@ -5,13 +5,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
 
-namespace Lazy.Abp.Cms
+namespace Lazy.Abp.Cms.Articles
 {
     public interface IArticleRepository : IRepository<Article, Guid>
     {
-        Task<Article> GetByIdAsync(Guid id, bool includeDetails = true, CancellationToken cancellationToken = default);
-
         Task<long> GetCountByTagAsync(Guid tagId, CancellationToken cancellationToken = default);
+
+        Task<Article> GetByIdAsync(Guid id, bool includeLogs = false, CancellationToken cancellationToken = default);
 
         Task<List<Article>> GetListByTagAsync(
             Guid tagId,
@@ -34,7 +34,6 @@ namespace Lazy.Abp.Cms
             DateTime? createdAfter = null,
             DateTime? createdBefore = null,
             string filter = null,
-            bool includeDetails = false,
             CancellationToken cancellationToken = default
         );
 
@@ -49,7 +48,7 @@ namespace Lazy.Abp.Cms
             DateTime? createdAfter = null,
             DateTime? createdBefore = null,
             string filter = null,
-            bool includeDetails = false,
+            //bool includeDetails = false,
             int maxResultCount = 10,
             int skipCount = 0,
             string sorting = null,

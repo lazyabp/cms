@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Volo.Abp.Domain.Entities;
 
-namespace Lazy.Abp.Cms
+namespace Lazy.Abp.Cms.Tags
 {
     public class Tag : AggregateRoot<Guid>
     {

@@ -14,4 +14,8 @@
     <ProjectReference Include="..\Lazy.Abp.Cms.Domain\Lazy.Abp.Cms.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Lazy\Abp\Cms\ArticleComments\" />
+  </ItemGroup>
+
 </Project>

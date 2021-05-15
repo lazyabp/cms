@@ -3,7 +3,7 @@ using Lazy.Abp.Cms.EntityFrameworkCore;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 
-namespace Lazy.Abp.Cms
+namespace Lazy.Abp.Cms.Articles
 {
     public class ArticleCategoryRepository : EfCoreRepository<ICmsDbContext, ArticleCategory>, IArticleCategoryRepository
     {

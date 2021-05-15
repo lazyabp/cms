@@ -1,5 +1,8 @@
+using JetBrains.Annotations;
+using Lazy.Abp.Cms.ArticleAuditLogs;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -7,14 +10,13 @@ using System.Text.Json;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
-namespace Lazy.Abp.Cms
+namespace Lazy.Abp.Cms.Articles
 {
     public class Article : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; }
 
-        public virtual Guid UserId { get; protected set; }
-
+        [NotNull]
         [MaxLength(ArticleConsts.MaxTitleLength)]
         public virtual string Title { get; protected set; }
 
@@ -76,19 +78,21 @@ namespace Lazy.Abp.Cms
         /// </summary>
         public virtual int SaleCount { get; protected set; }
 
-        //public virtual ArticleMeta Meta { get; set; }
-
         public virtual bool IsActive { get; protected set; }
 
         public virtual AuditStatus Status { get; protected set; }
 
-        public virtual List<ArticlePicture> Pictures { get; set; }
+        public virtual ArticleMeta Meta { get; set; }
 
-        public virtual List<ArticleContent> Contents { get; set; }
+        public virtual ICollection<ArticlePicture> Pictures { get; set; }
 
-        public virtual List<ArticleCategory> Categories { get; set; }
+        public virtual ArticleContent Content { get; set; }
 
-        public virtual List<ArticleTag> Tags { get; set; }
+        public virtual ICollection<ArticleCategory> Categories { get; set; }
+
+        public virtual ICollection<ArticleTag> Tags { get; set; }
+
+        public virtual ICollection<ArticleAuditLog> Logs { get; set; }
 
         protected Article()
         {
@@ -97,7 +101,6 @@ namespace Lazy.Abp.Cms
         public Article(
             Guid id,
             Guid? tenantId,
-            Guid userId,
             string title,
             string origin,
             string auth,
@@ -108,7 +111,6 @@ namespace Lazy.Abp.Cms
         ) : base(id)
         {
             TenantId = tenantId;
-            UserId = userId;
             Title = title;
             Origin = origin;
             Auth = auth;
@@ -118,11 +120,10 @@ namespace Lazy.Abp.Cms
             Video = video;
             IsFree = true;
 
-            //Meta = new ArticleMeta(id);
-            Pictures = new List<ArticlePicture>();
-            Contents = new List<ArticleContent>();
-            Categories = new List<ArticleCategory>();
-            Tags = new List<ArticleTag>();
+            Pictures = new Collection<ArticlePicture>();
+            Categories = new Collection<ArticleCategory>();
+            Tags = new Collection<ArticleTag>();
+            Logs = new Collection<ArticleAuditLog>();
         }
 
         public void Update(
@@ -133,7 +134,7 @@ namespace Lazy.Abp.Cms
             string descritpion,
             string file,
             string video
-            )
+        )
         {
             Title = title;
             Origin = origin;
@@ -216,20 +217,18 @@ namespace Lazy.Abp.Cms
             IsFree = salePrice == 0;
         }
 
-        public void AddPicture(string pictureUrl)
+        public void AddPicture(Guid pictureId, string pictureUrl)
         {
             if (!Pictures.Any(x => x.PictureUrl == pictureUrl))
-                Pictures.Add(new ArticlePicture(Id, pictureUrl));
+                Pictures.Add(new ArticlePicture(pictureId, Id, pictureUrl));
         }
 
-        public void AddContent(string key, string content)
+        public void SetContent(string shortDescritpion, string fullDescription)
         {
-            var item = Contents.FirstOrDefault(x => x.Key == key);
-
-            if (item == null)
-                Contents.Add(new ArticleContent(Id, key, content));
+            if (null != Content)
+                Content = new ArticleContent(Id, shortDescritpion, fullDescription);
             else
-                item.UpdateContent(content);
+                Content.Update(shortDescritpion, fullDescription);
         }
 
         public void AddCategory(Guid categoryId)
@@ -262,6 +261,22 @@ namespace Lazy.Abp.Cms
         public void SetAuditStatus(AuditStatus status)
         {
             Status = status;
+        }
+
+        public void SetMeta(
+            string metaTitle,
+            string keywords,
+            string metaDescription
+        )
+        {
+            if (null == Meta)
+            {
+                Meta = new ArticleMeta(Id, metaTitle, keywords, metaDescription);
+            }
+            else
+            {
+                Meta.Update(metaTitle, keywords, metaDescription);
+            }
         }
     }
 }

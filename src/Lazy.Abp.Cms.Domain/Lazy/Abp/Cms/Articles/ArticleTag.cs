@@ -1,7 +1,8 @@
+using Lazy.Abp.Cms.Tags;
 using System;
 using Volo.Abp.Domain.Entities;
 
-namespace Lazy.Abp.Cms
+namespace Lazy.Abp.Cms.Articles
 {
     public class ArticleTag : Entity
     {

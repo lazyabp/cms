@@ -9,12 +9,18 @@ using Microsoft.EntityFrameworkCore;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 
-namespace Lazy.Abp.Cms
+namespace Lazy.Abp.Cms.ArticleComments
 {
     public class ArticleCommentRepository : EfCoreRepository<ICmsDbContext, ArticleComment, Guid>, IArticleCommentRepository
     {
         public ArticleCommentRepository(IDbContextProvider<ICmsDbContext> dbContextProvider) : base(dbContextProvider)
         {
+        }
+
+        public override async Task<IQueryable<ArticleComment>> WithDetailsAsync()
+        {
+            return (await base.WithDetailsAsync())
+                .Include(q => q.Article);
         }
 
         public async Task<long> GetCountAsync(
@@ -23,11 +29,10 @@ namespace Lazy.Abp.Cms
             Guid? parentId = null, 
             AuditStatus? status = null, 
             string filter = null, 
-            bool includeDetails = false, 
             CancellationToken cancellationToken = default
         )
         {
-            var query = await GetListQuery(userId, articleId, parentId, status, filter, includeDetails);
+            var query = await GetListQuery(userId, articleId, parentId, status, filter);
 
             return await query.LongCountAsync(GetCancellationToken(cancellationToken));
         }
@@ -41,11 +46,10 @@ namespace Lazy.Abp.Cms
             Guid? parentId = null, 
             AuditStatus? status = null, 
             string filter = null, 
-            bool includeDetails = false, 
             CancellationToken cancellationToken = default
         )
         {
-            var query = await GetListQuery(userId, articleId, parentId, status, filter, includeDetails);
+            var query = await GetListQuery(userId, articleId, parentId, status, filter);
             
             var list = await query.OrderBy(sorting ?? "creationTime desc")
                 .PageBy(skipCount, maxResultCount)
@@ -59,13 +63,12 @@ namespace Lazy.Abp.Cms
             Guid? articleId = null,
             Guid? parentId = null,
             AuditStatus? status = null,
-            string filter = null,
-            bool includeDetails = false
+            string filter = null
         )
         {
             return (await GetQueryableAsync())
-                .IncludeDetails(includeDetails)
-                .WhereIf(userId.HasValue, e => e.UserId == userId.Value)
+                .Include(q => q.Article)
+                .WhereIf(userId.HasValue, e => e.CreatorId == userId.Value)
                 .WhereIf(articleId.HasValue, e => e.ArticleId == articleId.Value)
                 .WhereIf(parentId.HasValue, e => e.ParentId == parentId.Value)
                 .WhereIf(status.HasValue, e => e.Status == status.Value)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Domain.Entities;
 
-namespace Lazy.Abp.Cms
+namespace Lazy.Abp.Cms.Articles
 {
     public class ArticleCategory : Entity
     {

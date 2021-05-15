@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
 
-namespace Lazy.Abp.Cms
+namespace Lazy.Abp.Cms.Categories
 {
     public interface ICategoryRepository : IRepository<Category, Guid>
     {

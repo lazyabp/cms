@@ -9,12 +9,18 @@ using Microsoft.EntityFrameworkCore;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 
-namespace Lazy.Abp.Cms
+namespace Lazy.Abp.Cms.ArticleFavorites
 {
     public class ArticleFavoriteRepository : EfCoreRepository<ICmsDbContext, ArticleFavorite, Guid>, IArticleFavoriteRepository
     {
         public ArticleFavoriteRepository(IDbContextProvider<ICmsDbContext> dbContextProvider) : base(dbContextProvider)
         {
+        }
+
+        public override async Task<IQueryable<ArticleFavorite>> WithDetailsAsync()
+        {
+            return (await base.WithDetailsAsync())
+                .Include(q => q.Article);
         }
 
         public async Task CreateAsync(
@@ -26,42 +32,40 @@ namespace Lazy.Abp.Cms
         {
             var result = await (await GetQueryableAsync())
                 .AsNoTracking()
-                .Where(q => q.UserId == userId && q.ArticleId == articleId)
+                .Where(q => q.CreatorId == userId && q.ArticleId == articleId)
                 .FirstOrDefaultAsync(GetCancellationToken(cancellationToken));
 
             if (result != null)
                 throw new Exception("HasBeenAddedToFavorite");
 
-            await InsertAsync(new ArticleFavorite(GuidGenerator.Create(), tenantId, userId, articleId),
+            await InsertAsync(new ArticleFavorite(GuidGenerator.Create(), tenantId, articleId),
                     cancellationToken: GetCancellationToken(cancellationToken));
         }
 
         public async Task RemoveAsync(
-            Guid userId, 
-            Guid articleId, 
+            Guid userId,
+            Guid articleId,
             CancellationToken cancellationToken = default
         )
         {
             var result = await (await GetQueryableAsync())
-                .AsNoTracking()
-                .Where(q => q.UserId == userId && q.ArticleId == articleId)
+                .Where(q => q.CreatorId == userId && q.ArticleId == articleId)
                 .FirstOrDefaultAsync(GetCancellationToken(cancellationToken));
 
-            if (result == null)
-                throw new Exception("HasBeenRemovedFromFavorite");
-
-            await DeleteAsync(result, cancellationToken: GetCancellationToken(cancellationToken));
+            if (null != result)
+            {
+                await DeleteAsync(result, cancellationToken: GetCancellationToken(cancellationToken));
+            }
         }
 
         public async Task<long> GetCountAsync(
             Guid? userId = null, 
             Guid? articleId = null, 
-            string filter = null, 
-            bool includeDetails = false, 
+            string filter = null,
             CancellationToken cancellationToken = default
         )
         {
-            var query = await GetListQuery(userId, articleId, filter, includeDetails);
+            var query = await GetListQuery(userId, articleId, filter);
 
             return await query.LongCountAsync(GetCancellationToken(cancellationToken));
         }
@@ -72,12 +76,11 @@ namespace Lazy.Abp.Cms
             string sorting = null, 
             Guid? userId = null, 
             Guid? articleId = null, 
-            string filter = null, 
-            bool includeDetails = false, 
+            string filter = null,
             CancellationToken cancellationToken = default
         )
         {
-            var query = await GetListQuery(userId, articleId, filter, includeDetails);
+            var query = await GetListQuery(userId, articleId, filter);
 
             var list = await query.OrderBy(sorting ?? "creationTime desc")
                 .PageBy(skipCount, maxResultCount)
@@ -89,13 +92,12 @@ namespace Lazy.Abp.Cms
         protected async Task<IQueryable<ArticleFavorite>> GetListQuery(
             Guid? userId = null,
             Guid? articleId = null,
-            string filter = null,
-            bool includeDetails = false
+            string filter = null
         )
         {
             return (await GetQueryableAsync())
-                .IncludeDetails(includeDetails)
-                .WhereIf(userId.HasValue, e => e.UserId == userId.Value)
+                .Include(q => q.Article)
+                .WhereIf(userId.HasValue, e => e.CreatorId == userId.Value)
                 .WhereIf(articleId.HasValue, e => e.ArticleId == articleId.Value)
                 .WhereIf(!string.IsNullOrEmpty(filter),
                     e => false

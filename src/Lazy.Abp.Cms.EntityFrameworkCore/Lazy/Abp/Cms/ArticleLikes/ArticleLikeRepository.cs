@@ -9,12 +9,18 @@ using Microsoft.EntityFrameworkCore;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 
-namespace Lazy.Abp.Cms
+namespace Lazy.Abp.Cms.ArticleLikes
 {
     public class ArticleLikeRepository : EfCoreRepository<ICmsDbContext, ArticleLike, Guid>, IArticleLikeRepository
     {
         public ArticleLikeRepository(IDbContextProvider<ICmsDbContext> dbContextProvider) : base(dbContextProvider)
         {
+        }
+
+        public override async Task<IQueryable<ArticleLike>> WithDetailsAsync()
+        {
+            return (await base.WithDetailsAsync())
+                .Include(q => q.Article);
         }
 
         public async Task CreateAsync(
@@ -26,48 +32,41 @@ namespace Lazy.Abp.Cms
         )
         {
             var result = await (await GetQueryableAsync())
-                .AsNoTracking()
-                .Where(q => q.UserId == userId && q.ArticleId == articleId)
+                .Where(q => q.CreatorId == userId && q.ArticleId == articleId)
                 .FirstOrDefaultAsync(GetCancellationToken(cancellationToken));
 
-            if (result != null)
-                throw new Exception("HasBeenSetLike");
-
-            await InsertAsync(new ArticleLike(GuidGenerator.Create(), tenantId, userId, articleId, like),
-                    cancellationToken: GetCancellationToken(cancellationToken));
+            if (null == result)
+            {
+                await InsertAsync(new ArticleLike(GuidGenerator.Create(), tenantId, articleId, like));
+            }
         }
 
         public async Task RemoveAsync(
-            Guid userId, 
-            Guid articleId, 
-            bool like, 
+            Guid userId,
+            Guid articleId,
             CancellationToken cancellationToken = default
         )
         {
             var result = await (await GetQueryableAsync())
                 .AsNoTracking()
-                .Where(q => q.UserId == userId && q.ArticleId == articleId)
+                .Where(q => q.CreatorId == userId && q.ArticleId == articleId)
                 .FirstOrDefaultAsync(GetCancellationToken(cancellationToken));
 
-            if (result == null)
-                throw new Exception("HasBeenRemovedLike");
-
-            if (result.LikeOrDislike != like)
-                throw new Exception("InvalidOperation");
-
-            await DeleteAsync(result, cancellationToken: GetCancellationToken(cancellationToken));
+            if (null != result)
+            {
+                await DeleteAsync(result, cancellationToken: GetCancellationToken(cancellationToken));
+            }
         }
 
         public async Task<long> GetCountAsync(
             Guid? userId = null,
             Guid? articleId = null, 
             bool? likeOrDislike = null, 
-            string filter = null, 
-            bool includeDetails = false, 
+            string filter = null,
             CancellationToken cancellationToken = default
         )
         {
-            var query = await GetListQuery(userId, articleId, likeOrDislike, filter, includeDetails);
+            var query = await GetListQuery(userId, articleId, likeOrDislike, filter);
 
             return await query.LongCountAsync(GetCancellationToken(cancellationToken));
         }
@@ -79,12 +78,11 @@ namespace Lazy.Abp.Cms
             Guid? userId = null, 
             Guid? articleId = null, 
             bool? likeOrDislike = null,
-            string filter = null, 
-            bool includeDetails = false, 
+            string filter = null,
             CancellationToken cancellationToken = default
         )
         {
-            var query = await GetListQuery(userId, articleId, likeOrDislike, filter, includeDetails);
+            var query = await GetListQuery(userId, articleId, likeOrDislike, filter);
             
             var list = await query.OrderBy(sorting ?? "creationTime desc")
                 .PageBy(skipCount, maxResultCount)
@@ -97,13 +95,12 @@ namespace Lazy.Abp.Cms
             Guid? userId = null,
             Guid? articleId = null,
             bool? likeOrDislike = null,
-            string filter = null,
-            bool includeDetails = false
+            string filter = null
         )
         {
             return (await GetQueryableAsync())
-                .IncludeDetails(includeDetails)
-                .WhereIf(userId.HasValue, e => e.UserId == userId.Value)
+                .Include(q => q.Article)
+                .WhereIf(userId.HasValue, e => e.CreatorId == userId.Value)
                 .WhereIf(articleId.HasValue, e => e.ArticleId == articleId.Value)
                 .WhereIf(likeOrDislike.HasValue, e => e.LikeOrDislike == likeOrDislike.Value)
                 .WhereIf(!string.IsNullOrEmpty(filter),

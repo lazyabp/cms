@@ -1,8 +1,7 @@
-﻿using Lazy.Abp.Cms.Dtos;
+﻿using Lazy.Abp.Cms.ArticleFavorites;
+using Lazy.Abp.Cms.ArticleFavorites.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
@@ -11,9 +10,9 @@ using Volo.Abp.AspNetCore.Mvc;
 namespace Lazy.Abp.Cms
 {
     [RemoteService(Name = CmsRemoteServiceConsts.RemoteServiceName)]
-    [Area("cmskit")]
+    [Area("cms")]
     [ControllerName("ArticleFavorite")]
-    [Route("api/cmskit/article-favorites")]
+    [Route("api/cms/article-favorites")]
     public class ArticleFavoriteController : AbpController, IArticleFavoriteAppService
     {
         private readonly IArticleFavoriteAppService _service;

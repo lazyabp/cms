@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
 
-namespace Lazy.Abp.Cms
+namespace Lazy.Abp.Cms.Categories
 {
     public class Category : FullAuditedAggregateRoot<Guid>
     {
@@ -12,7 +12,7 @@ namespace Lazy.Abp.Cms
         public virtual string Name { get; protected set; }
 
         [MaxLength(CategoryConsts.MaxLabelLength)]
-        public virtual string Label { get; protected set; }
+        public virtual string DisplayName { get; protected set; }
 
         public virtual int Depth { get; protected set; }
 
@@ -37,7 +37,7 @@ namespace Lazy.Abp.Cms
         public Category(
             Guid id, 
             string name, 
-            string label, 
+            string displayName, 
             int depth, 
             Guid? parentId, 
             Guid? rootId,
@@ -46,7 +46,7 @@ namespace Lazy.Abp.Cms
         ) : base(id)
         {
             Name = name;
-            Label = label;
+            DisplayName = displayName;
             Depth = depth;
             ParentId = parentId;
             RootId = rootId;
@@ -56,7 +56,7 @@ namespace Lazy.Abp.Cms
 
         public void Update(
             string name,
-            string label,
+            string displayName,
             int depth,
             Guid? parentId,
             Guid? rootId,
@@ -65,7 +65,7 @@ namespace Lazy.Abp.Cms
         )
         {
             Name = name;
-            Label = label;
+            DisplayName = displayName;
             Depth = depth;
             ParentId = parentId;
             RootId = rootId;

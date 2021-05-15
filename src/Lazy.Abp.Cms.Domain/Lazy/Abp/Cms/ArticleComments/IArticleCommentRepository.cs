@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
 
-namespace Lazy.Abp.Cms
+namespace Lazy.Abp.Cms.ArticleComments
 {
     public interface IArticleCommentRepository : IRepository<ArticleComment, Guid>
     {
@@ -14,7 +14,6 @@ namespace Lazy.Abp.Cms
             Guid? parentId = null,
             AuditStatus? status = null,
             string filter = null,
-            bool includeDetails = false,
             CancellationToken cancellationToken = default
         );
 
@@ -27,7 +26,6 @@ namespace Lazy.Abp.Cms
             Guid? parentId = null,
             AuditStatus? status = null,
             string filter = null,
-            bool includeDetails = false,
             CancellationToken cancellationToken = default
         );
     }

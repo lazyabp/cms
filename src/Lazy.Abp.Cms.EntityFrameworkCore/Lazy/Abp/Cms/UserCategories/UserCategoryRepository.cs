@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 
-namespace Lazy.Abp.Cms
+namespace Lazy.Abp.Cms.UserCategories
 {
     public class UserCategoryRepository : EfCoreRepository<ICmsDbContext, UserCategory, Guid>, IUserCategoryRepository
     {

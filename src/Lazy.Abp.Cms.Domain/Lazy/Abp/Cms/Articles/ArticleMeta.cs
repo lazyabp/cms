@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Volo.Abp.Domain.Entities;
 
-namespace Lazy.Abp.Cms
+namespace Lazy.Abp.Cms.Articles
 {
     public class ArticleMeta : Entity
     {
@@ -28,12 +28,20 @@ namespace Lazy.Abp.Cms
         {
         }
 
-        internal ArticleMeta(Guid articleId)
+        internal ArticleMeta(
+            Guid articleId,
+            string metaTitle,
+            string keywords,
+            string metaDescription
+        )
         {
             ArticleId = articleId;
+            MetaTitle = metaTitle;
+            Keywords = keywords;
+            MetaDescription = metaDescription;
         }
 
-        internal void SetMeta(
+        internal void Update(
             string metaTitle, 
             string keywords, 
             string metaDescription

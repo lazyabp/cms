@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
 
-namespace Lazy.Abp.Cms
+namespace Lazy.Abp.Cms.ArticleSales
 {
     public interface IArticleSaleRepository : IRepository<ArticleSale, Guid>
     {
@@ -19,7 +19,6 @@ namespace Lazy.Abp.Cms
             DateTime? paidAfther = null,
             DateTime? paidBefore = null,
             string filter = null,
-            bool includeDetails = false,
             CancellationToken cancellationToken = default
         );
 
@@ -33,7 +32,6 @@ namespace Lazy.Abp.Cms
             DateTime? paidAfther = null,
             DateTime? paidBefore = null,
             string filter = null,
-            bool includeDetails = false,
             CancellationToken cancellationToken = default
         );
     }

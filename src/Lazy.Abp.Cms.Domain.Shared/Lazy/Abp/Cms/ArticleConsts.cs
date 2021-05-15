@@ -12,6 +12,8 @@ namespace Lazy.Abp.Cms
 
         public const int MaxAuthLength = 50;
 
+        public const int MaxHashLength = 128;
+
         public const int MaxFileLength = 255;
 
         public const int MaxVideoLength = 255;

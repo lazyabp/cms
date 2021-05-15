@@ -1,11 +1,11 @@
+using Lazy.Abp.Cms.Admin.Permissions;
+using Lazy.Abp.Cms.Categories;
+using Lazy.Abp.Cms.Categories.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using System;
-using Lazy.Abp.Cms.Dtos;
-using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
 using System.Threading.Tasks;
 using Volo.Abp;
-using Volo.Abp.Uow;
-using Lazy.Abp.Cms.Admin.Permissions;
+using Volo.Abp.Application.Services;
 
 namespace Lazy.Abp.Cms.Admin
 {
@@ -25,6 +25,7 @@ namespace Lazy.Abp.Cms.Admin
             _repository = repository;
         }
 
+        [Authorize(CmsAdminPermissions.Category.Create)]
         public override async Task<CategoryDto> CreateAsync(CreateUpdateCategoryDto input)
         {
             var depth = 1;
@@ -44,12 +45,13 @@ namespace Lazy.Abp.Cms.Admin
                 depth = parent.Depth + 1;
             }
 
-            var category = new Category(id, input.Name, input.Label, depth, input.ParentId, rootId, path, input.DisplayOrder);
+            var category = new Category(id, input.Name, input.DisplayName, depth, input.ParentId, rootId, path, input.DisplayOrder);
             category = await _repository.InsertAsync(category);
 
             return ObjectMapper.Map<Category, CategoryDto>(category);
         }
 
+        [Authorize(CmsAdminPermissions.Category.Update)]
         public override async Task<CategoryDto> UpdateAsync(Guid id, CreateUpdateCategoryDto input)
         {
             var depth = 1;
@@ -70,7 +72,7 @@ namespace Lazy.Abp.Cms.Admin
             var category = await _repository.GetAsync(id);
             var oldParentId = category.ParentId;
 
-            category.Update(input.Name, input.Label, depth, input.ParentId, rootId, path, input.DisplayOrder);
+            category.Update(input.Name, input.DisplayName, depth, input.ParentId, rootId, path, input.DisplayOrder);
             category = await _repository.UpdateAsync(category);
 
             // ���������ӷ���

@@ -1,10 +1,12 @@
+using Lazy.Abp.Cms.Admin.Permissions;
+using Lazy.Abp.Cms.Tags;
+using Lazy.Abp.Cms.Tags.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using System;
-using Lazy.Abp.Cms.Dtos;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using Lazy.Abp.Cms.Admin.Permissions;
 
 namespace Lazy.Abp.Cms.Admin
 {
@@ -24,6 +26,7 @@ namespace Lazy.Abp.Cms.Admin
             _repository = repository;
         }
 
+        [Authorize(CmsAdminPermissions.Tag.Default)]
         public override async Task<PagedResultDto<TagDto>> GetListAsync(GetTagListRequestDto input)
         {
             var totalCount = await _repository.GetCountAsync();

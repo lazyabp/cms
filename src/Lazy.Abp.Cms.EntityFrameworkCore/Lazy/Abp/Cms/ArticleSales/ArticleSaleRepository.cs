@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 
-namespace Lazy.Abp.Cms
+namespace Lazy.Abp.Cms.ArticleSales
 {
     public class ArticleSaleRepository : EfCoreRepository<ICmsDbContext, ArticleSale, Guid>, IArticleSaleRepository
     {
@@ -43,8 +43,7 @@ namespace Lazy.Abp.Cms
             bool? isPaid = null,
             DateTime? paidAfther = null,
             DateTime? paidBefore = null,
-            string filter = null, 
-            bool includeDetails = false,
+            string filter = null,
             CancellationToken cancellationToken = default
         )
         {
@@ -63,7 +62,6 @@ namespace Lazy.Abp.Cms
             DateTime? paidAfther = null, 
             DateTime? paidBefore = null, 
             string filter = null,
-            bool includeDetails = false,
             CancellationToken cancellationToken = default
         )
         {
@@ -82,12 +80,11 @@ namespace Lazy.Abp.Cms
             bool? isPaid = null,
             DateTime? paidAfther = null,
             DateTime? paidBefore = null,
-            string filter = null,
-            bool includeDetails = false
+            string filter = null
         )
         {
             return (await GetQueryableAsync())
-                .IncludeDetails(includeDetails)
+                //.Include(q => q.Article)
                 .WhereIf(userId.HasValue, e => e.UserId == userId.Value)
                 .WhereIf(articleId.HasValue, e => e.ArticleId == articleId.Value)
                 .WhereIf(isPaid.HasValue, e => e.IsPaid == isPaid.Value)

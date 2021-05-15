@@ -1,18 +1,18 @@
 using JetBrains.Annotations;
+using Lazy.Abp.Cms.Articles;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
-namespace Lazy.Abp.Cms
+namespace Lazy.Abp.Cms.ArticleComments
 {
     public class ArticleComment : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; }
-
-        public Guid UserId { get; protected set; }
 
         /// <summary>
         /// 文章ID
@@ -50,6 +50,7 @@ namespace Lazy.Abp.Cms
         /// </summary>
         public string AuditRemark { get; protected set; }
 
+        [ForeignKey("ArticleId")]
         public virtual Article Article { get; set; }
 
         protected ArticleComment()
@@ -59,7 +60,6 @@ namespace Lazy.Abp.Cms
         public ArticleComment(
             Guid id,
             Guid? tenantId,
-            Guid userId, 
             Guid articleId, 
             Guid parentId, 
             string content, 
@@ -68,7 +68,6 @@ namespace Lazy.Abp.Cms
         ) : base(id)
         {
             TenantId = tenantId;
-            UserId = userId;
             ArticleId = articleId;
             ParentId = parentId;
             Content = content;

@@ -1,8 +1,6 @@
-﻿using Lazy.Abp.Cms.Dtos;
+﻿using Lazy.Abp.Cms.SinglePages.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
@@ -11,9 +9,9 @@ using Volo.Abp.AspNetCore.Mvc;
 namespace Lazy.Abp.Cms.Admin
 {
     [RemoteService(Name = CmsAdminRemoteServiceConsts.RemoteServiceName)]
-    [Area("cmskitadmin")]
+    [Area("cmsadmin")]
     [ControllerName("SinglePage")]
-    [Route("api/cmskit/single-pages/admin")]
+    [Route("api/cms/single-pages/admin")]
     public class SinglePageManagementController : AbpController, ISinglePageManagementAppService
     {
         private readonly ISinglePageManagementAppService _service;

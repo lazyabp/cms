@@ -1,8 +1,6 @@
-﻿using Lazy.Abp.Cms.Dtos;
+﻿using Lazy.Abp.Cms.Tags.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
@@ -11,9 +9,9 @@ using Volo.Abp.AspNetCore.Mvc;
 namespace Lazy.Abp.Cms.Admin
 {
     [RemoteService(Name = CmsAdminRemoteServiceConsts.RemoteServiceName)]
-    [Area("cmskitadmin")]
+    [Area("cmsadmin")]
     [ControllerName("Tag")]
-    [Route("api/cmskit/tags/admin")]
+    [Route("api/cms/tags/admin")]
     public class TagManagementController : AbpController, ITagManagementAppService
     {
         private readonly ITagManagementAppService _service;

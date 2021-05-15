@@ -3,6 +3,16 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore.Modeling;
+using Lazy.Abp.Cms.Articles;
+using Lazy.Abp.Cms.ArticleComments;
+using Lazy.Abp.Cms.ArticleFavorites;
+using Lazy.Abp.Cms.ArticleLikes;
+using Lazy.Abp.Cms.ArticleSales;
+using Lazy.Abp.Cms.Categories;
+using Lazy.Abp.Cms.SinglePages;
+using Lazy.Abp.Cms.Tags;
+using Lazy.Abp.Cms.UserCategories;
+using Lazy.Abp.Cms.ArticleAuditLogs;
 
 namespace Lazy.Abp.Cms.EntityFrameworkCore
 {
@@ -47,16 +57,12 @@ namespace Lazy.Abp.Cms.EntityFrameworkCore
                 b.ToTable(options.TablePrefix + "Articles", options.Schema);
                 b.ConfigureByConvention();
 
-                b.HasIndex(q => new
-                {
-                    q.UserId,
-                    q.UserCategoryId
-                });
+                b.HasIndex(q => q.UserCategoryId);
 
                 b.HasMany(q => q.Pictures).WithOne().HasForeignKey(x => x.ArticleId);
-                b.HasMany(q => q.Contents).WithOne().HasForeignKey(x => x.ArticleId);
                 b.HasMany(q => q.Categories).WithOne().HasForeignKey(x => x.ArticleId);
                 b.HasMany(q => q.Tags).WithOne().HasForeignKey(x => x.ArticleId);
+                b.HasMany(q => q.Logs).WithOne().HasForeignKey(x => x.ArticleId);
                 /* Configure more properties here */
             });
 
@@ -66,7 +72,7 @@ namespace Lazy.Abp.Cms.EntityFrameworkCore
                 b.ToTable(options.TablePrefix + "ArticleComments", options.Schema);
                 b.ConfigureByConvention();
 
-                b.HasIndex(q => q.UserId);
+                b.HasIndex(q => q.ArticleId);
                 /* Configure more properties here */
             });
 
@@ -75,8 +81,6 @@ namespace Lazy.Abp.Cms.EntityFrameworkCore
             {
                 b.ToTable(options.TablePrefix + "ArticlePictures", options.Schema);
                 b.ConfigureByConvention();
-
-                b.HasIndex(q => q.ArticleId);
                 /* Configure more properties here */
             });
 
@@ -85,11 +89,7 @@ namespace Lazy.Abp.Cms.EntityFrameworkCore
                 b.ToTable(options.TablePrefix + "ArticleContents", options.Schema);
                 b.ConfigureByConvention();
 
-                b.HasKey(q => new
-                {
-                    q.ArticleId,
-                    q.Key
-                });
+                b.HasKey(q => q.ArticleId);
                 /* Configure more properties here */
             });
 
@@ -98,8 +98,6 @@ namespace Lazy.Abp.Cms.EntityFrameworkCore
             {
                 b.ToTable(options.TablePrefix + "ArticleFavorites", options.Schema);
                 b.ConfigureByConvention();
-
-                b.HasIndex(q => q.UserId);
                 /* Configure more properties here */
             });
 
@@ -108,8 +106,6 @@ namespace Lazy.Abp.Cms.EntityFrameworkCore
             {
                 b.ToTable(options.TablePrefix + "ArticleLikes", options.Schema);
                 b.ConfigureByConvention();
-
-                b.HasIndex(q => q.UserId);
                 /* Configure more properties here */
             });
 
@@ -144,11 +140,7 @@ namespace Lazy.Abp.Cms.EntityFrameworkCore
                 b.ToTable(options.TablePrefix + "ArticleCategories", options.Schema);
                 b.ConfigureByConvention();
 
-                b.HasKey(q => new
-                {
-                    q.CategoryId,
-                    q.ArticleId
-                });
+                b.HasKey(q => new { q.ArticleId, q.CategoryId });
                 /* Configure more properties here */
             });
 
@@ -158,7 +150,6 @@ namespace Lazy.Abp.Cms.EntityFrameworkCore
                 b.ToTable(options.TablePrefix + "Categories", options.Schema);
                 b.ConfigureByConvention(); 
                 
-
                 /* Configure more properties here */
             });
 
@@ -182,17 +173,12 @@ namespace Lazy.Abp.Cms.EntityFrameworkCore
                 /* Configure more properties here */
             });
 
-
             builder.Entity<ArticleTag>(b =>
             {
                 b.ToTable(options.TablePrefix + "ArticleTags", options.Schema);
                 b.ConfigureByConvention();
 
-                b.HasKey(q => new
-                {
-                    q.ArticleId,
-                    q.TagId
-                });
+                b.HasKey(q => new { q.ArticleId, q.TagId });
                 /* Configure more properties here */
             });
 
@@ -211,7 +197,6 @@ namespace Lazy.Abp.Cms.EntityFrameworkCore
                 b.ToTable(options.TablePrefix + "ArticleAuditLogs", options.Schema);
                 b.ConfigureByConvention();
 
-                b.HasOne(q => q.Article).WithMany().HasForeignKey(q => q.ArticleId);
                 /* Configure more properties here */
             });
         }

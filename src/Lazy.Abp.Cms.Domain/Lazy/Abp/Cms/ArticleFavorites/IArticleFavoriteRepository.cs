@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
 
-namespace Lazy.Abp.Cms
+namespace Lazy.Abp.Cms.ArticleFavorites
 {
     public interface IArticleFavoriteRepository : IRepository<ArticleFavorite, Guid>
     {
@@ -16,7 +16,6 @@ namespace Lazy.Abp.Cms
             Guid? userId = null,
             Guid? articleId = null,
             string filter = null,
-            bool includeDetails = false,
             CancellationToken cancellationToken = default
         );
 
@@ -27,7 +26,6 @@ namespace Lazy.Abp.Cms
             Guid? userId = null,
             Guid? articleId = null,
             string filter = null,
-            bool includeDetails = false,
             CancellationToken cancellationToken = default
         );
     }

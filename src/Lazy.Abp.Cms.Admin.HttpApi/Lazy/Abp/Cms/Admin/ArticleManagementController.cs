@@ -1,9 +1,7 @@
-﻿using Lazy.Abp.Cms.Admin;
-using Lazy.Abp.Cms.Dtos;
+﻿using Lazy.Abp.Cms.ArticleAuditLogs.Dtos;
+using Lazy.Abp.Cms.Articles.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
@@ -12,9 +10,9 @@ using Volo.Abp.AspNetCore.Mvc;
 namespace Lazy.Abp.Cms.Admin
 {
     [RemoteService(Name = CmsAdminRemoteServiceConsts.RemoteServiceName)]
-    [Area("cmskitadmin")]
+    [Area("cmsadmin")]
     [ControllerName("Article")]
-    [Route("api/cmskit/articles/admin")]
+    [Route("api/cms/articles/admin")]
     public class ArticleManagementController : AbpController, IArticleManagementAppService
     {
         private readonly IArticleManagementAppService _service;
@@ -26,13 +24,13 @@ namespace Lazy.Abp.Cms.Admin
 
         [HttpGet]
         [Route("{id}")]
-        public Task<ArticleViewDto> GetAsync(Guid id)
+        public Task<ArticleDto> GetAsync(Guid id)
         {
             return _service.GetAsync(id);
         }
 
         [HttpGet]
-        public Task<PagedResultDto<ArticleViewDto>> GetListAsync(GetArticleListRequestDto input)
+        public Task<PagedResultDto<ArticleDto>> GetListAsync(GetArticleListRequestDto input)
         {
             return _service.GetListAsync(input);
         }

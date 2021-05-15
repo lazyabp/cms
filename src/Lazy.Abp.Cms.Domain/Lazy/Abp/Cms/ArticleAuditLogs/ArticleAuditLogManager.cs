@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Services;
 
-namespace Lazy.Abp.Cms
+namespace Lazy.Abp.Cms.ArticleAuditLogs
 {
     public class ArticleAuditLogManager : DomainService, IArticleAuditLogManager, ITransientDependency
     {
@@ -16,9 +16,9 @@ namespace Lazy.Abp.Cms
             _repository = repository;
         }
 
-        public async Task<ArticleAuditLog> WriteAsync(Guid articleId, AuditStatus status, string remark)
+        public async Task<ArticleAuditLog> WriteAsync(Guid articleId, Guid? tenantId, AuditStatus status, string remark)
         {
-            var log = new ArticleAuditLog(GuidGenerator.Create(), articleId, status, remark);
+            var log = new ArticleAuditLog(GuidGenerator.Create(), tenantId, articleId, status, remark);
 
             return await _repository.InsertAsync(log);
         }

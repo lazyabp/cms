@@ -1,7 +1,24 @@
-using Lazy.Abp.Cms;
-using Lazy.Abp.Cms.Dtos;
 using AutoMapper;
-using System.Text.Json;
+using Lazy.Abp.Cms.ArticleAuditLogs;
+using Lazy.Abp.Cms.ArticleAuditLogs.Dtos;
+using Lazy.Abp.Cms.ArticleComments;
+using Lazy.Abp.Cms.ArticleComments.Dtos;
+using Lazy.Abp.Cms.ArticleFavorites;
+using Lazy.Abp.Cms.ArticleFavorites.Dtos;
+using Lazy.Abp.Cms.ArticleLikes;
+using Lazy.Abp.Cms.ArticleLikes.Dtos;
+using Lazy.Abp.Cms.Articles;
+using Lazy.Abp.Cms.Articles.Dtos;
+using Lazy.Abp.Cms.ArticleSales;
+using Lazy.Abp.Cms.ArticleSales.Dtos;
+using Lazy.Abp.Cms.Categories;
+using Lazy.Abp.Cms.Categories.Dtos;
+using Lazy.Abp.Cms.SinglePages;
+using Lazy.Abp.Cms.SinglePages.Dtos;
+using Lazy.Abp.Cms.Tags;
+using Lazy.Abp.Cms.Tags.Dtos;
+using Lazy.Abp.Cms.UserCategories;
+using Lazy.Abp.Cms.UserCategories.Dtos;
 
 namespace Lazy.Abp.Cms
 {
@@ -13,18 +30,12 @@ namespace Lazy.Abp.Cms
              * Alternatively, you can split your mapping configurations
              * into multiple profile classes for a better organization. */
             CreateMap<Article, ArticleDto>();
-            CreateMap<Article, ArticleViewDto>()
-                .ForMember(q => q.Pictures, op => op.Ignore())
-                .ForMember(q => q.Contents, op => op.Ignore())
-                .ForMember(q => q.Categories, op => op.Ignore())
-                .ForMember(q => q.Tags, op => op.Ignore());
-
             CreateMap<ArticleComment, ArticleCommentDto>();
             CreateMap<CreateUpdateArticleCommentDto, ArticleComment>(MemberList.Source);
 
-            CreateMap<ArticlePicture, ArticlePictureDto>();
-
+            CreateMap<ArticleMeta, ArticleMetaDto>();
             CreateMap<ArticleContent, ArticleContentDto>();
+            CreateMap<ArticlePicture, ArticlePictureDto>();
 
             CreateMap<ArticleFavorite, ArticleFavoriteDto>();
 
@@ -36,15 +47,13 @@ namespace Lazy.Abp.Cms
             CreateMap<Category, CategoryDto>();
             CreateMap<Category, CategoryViewDto>();
 
-            CreateMap<ArticleCategory, ArticleCategoryDto>()
-                .ForMember(q => q.Category, op => op.Ignore());
+            CreateMap<ArticleCategory, ArticleCategoryDto>();
 
             CreateMap<SinglePage, SinglePageDto>();
 
             CreateMap<Tag, TagDto>();
 
-            CreateMap<ArticleTag, ArticleTagDto>()
-                .ForMember(q => q.Tag, op => op.Ignore());
+            CreateMap<ArticleTag, ArticleTagDto>();
 
             CreateMap<UserCategory, UserCategoryDto>();
             CreateMap<CreateUpdateUserCategoryDto, UserCategory>(MemberList.Source);

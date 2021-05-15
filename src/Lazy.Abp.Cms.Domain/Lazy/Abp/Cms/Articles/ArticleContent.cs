@@ -4,36 +4,36 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Volo.Abp.Domain.Entities;
 
-namespace Lazy.Abp.Cms
+namespace Lazy.Abp.Cms.Articles
 {
     public class ArticleContent : Entity
     {
         public virtual Guid ArticleId { get; set; }
 
-        [MaxLength(ArticleConsts.MaxContentKeyLength)]
-        public virtual string Key { get; protected set; }
+        public virtual string ShortDescritpion { get; protected set; }
 
-        public virtual string Content { get; protected set; }
+        public virtual string FullDescription { get; protected set; }
 
         public override object[] GetKeys()
         {
-            return new object[] { ArticleId, };
+            return new object[] { ArticleId };
         }
 
         private ArticleContent()
         {
         }
 
-        internal ArticleContent(Guid articleId, string key, string content)
+        internal ArticleContent(Guid articleId, string shortDescritpion, string fullDescription)
         {
             ArticleId = articleId;
-            Key = key;
-            Content = content;
+            ShortDescritpion = shortDescritpion;
+            FullDescription = fullDescription;
         }
 
-        internal void UpdateContent(string content)
+        internal void Update(string shortDescritpion, string fullDescription)
         {
-            Content = content;
+            ShortDescritpion = shortDescritpion;
+            FullDescription = fullDescription;
         }
     }
 }

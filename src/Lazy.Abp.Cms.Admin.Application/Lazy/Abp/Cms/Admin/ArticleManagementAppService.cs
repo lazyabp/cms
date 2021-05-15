@@ -1,13 +1,12 @@
-using System;
 using Lazy.Abp.Cms.Admin.Permissions;
-using Lazy.Abp.Cms.Dtos;
+using Lazy.Abp.Cms.ArticleAuditLogs.Dtos;
+using Lazy.Abp.Cms.Articles;
+using Lazy.Abp.Cms.Articles.Dtos;
+using Microsoft.AspNetCore.Authorization;
+using System;
+using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
-using System.Threading.Tasks;
-using Volo.Abp.Users;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Lazy.Abp.Cms.Admin
 {
@@ -24,13 +23,13 @@ namespace Lazy.Abp.Cms.Admin
         }
 
         [Authorize(CmsAdminPermissions.Article.Default)]
-        public Task<ArticleViewDto> GetAsync(Guid id)
+        public Task<ArticleDto> GetAsync(Guid id)
         {
             return _articleCommonAppService.GetAsync(id);
         }
 
         [Authorize(CmsAdminPermissions.Article.Default)]
-        public Task<PagedResultDto<ArticleViewDto>> GetListAsync(GetArticleListRequestDto input)
+        public Task<PagedResultDto<ArticleDto>> GetListAsync(GetArticleListRequestDto input)
         {
             return _articleCommonAppService.GetListAsync(input);
         }

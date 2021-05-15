@@ -4,20 +4,19 @@ using System.Threading;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
 
-namespace Lazy.Abp.Cms
+namespace Lazy.Abp.Cms.ArticleLikes
 {
     public interface IArticleLikeRepository : IRepository<ArticleLike, Guid>
     {
         Task CreateAsync(Guid? tenantId, Guid userId, Guid articleId, bool like, CancellationToken cancellationToken = default);
 
-        Task RemoveAsync(Guid userId, Guid articleId, bool like, CancellationToken cancellationToken = default);
+        Task RemoveAsync(Guid userId, Guid articleId, CancellationToken cancellationToken = default);
 
         Task<long> GetCountAsync(
             Guid? userId = null,
             Guid? articleId = null,
             bool? likeOrDislike = null,
             string filter = null,
-            bool includeDetails = false,
             CancellationToken cancellationToken = default
         );
 
@@ -29,7 +28,6 @@ namespace Lazy.Abp.Cms
             Guid? articleId = null,
             bool? likeOrDislike = null,
             string filter = null,
-            bool includeDetails = false,
             CancellationToken cancellationToken = default
         );
     }

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 
-namespace Lazy.Abp.Cms
+namespace Lazy.Abp.Cms.Articles
 {
     public class ArticleRepository : EfCoreRepository<ICmsDbContext, Article, Guid>, IArticleRepository
     {
@@ -21,12 +21,15 @@ namespace Lazy.Abp.Cms
             _articleTagRepository = articleTagRepository;
         }
 
-        public async Task<Article> GetByIdAsync(Guid id, bool includeDetails = true, CancellationToken cancellationToken = default)
+        public override async Task<IQueryable<Article>> WithDetailsAsync()
         {
-            return await (await GetQueryableAsync())
-                .IncludeDetails(includeDetails)
-                .Where(q => q.Id == id)
-                .FirstOrDefaultAsync(GetCancellationToken(cancellationToken));
+            return (await base.WithDetailsAsync())
+                .Include(q => q.Meta)
+                .Include(q => q.Content)
+                .Include(q => q.Pictures)
+                .Include(q => q.Categories)
+                .Include(q => q.Tags).ThenInclude(q => q.Tag)
+                .Include(q => q.Logs);
         }
 
         public async Task<long> GetCountByTagAsync(Guid tagId, CancellationToken cancellationToken = default)
@@ -34,6 +37,19 @@ namespace Lazy.Abp.Cms
             var query = await GetListByTagQuery(tagId);
 
             return await query.LongCountAsync(GetCancellationToken(cancellationToken));
+        }
+
+        public async Task<Article> GetByIdAsync(Guid id, bool includeLogs = false, CancellationToken cancellationToken = default)
+        {
+            return await (await GetQueryableAsync())
+                .Include(q => q.Meta)
+                .Include(q => q.Content)
+                .Include(q => q.Pictures)
+                .Include(q => q.Categories)
+                .Include(q => q.Tags).ThenInclude(q => q.Tag)
+                .IncludeIf(includeLogs, q => q.Logs)
+                .Where(q => q.Id == id)
+                .FirstOrDefaultAsync(GetCancellationToken(cancellationToken));
         }
 
         public async Task<long> GetCountAsync(
@@ -47,11 +63,10 @@ namespace Lazy.Abp.Cms
             DateTime? createdAfter = null,
             DateTime? createdBefore = null,
             string filter = null,
-            bool includeDetails = false,
             CancellationToken cancellationToken = default
         )
         {
-            var query = await GetListQuery(userId, hasFile, hasVideo, isFree, isActive, status, userCategoryId, createdAfter, createdBefore, filter, includeDetails);
+            var query = await GetListQuery(userId, hasFile, hasVideo, isFree, isActive, status, userCategoryId, createdAfter, createdBefore, filter);
 
             return await query.LongCountAsync(GetCancellationToken(cancellationToken));
         }
@@ -67,14 +82,13 @@ namespace Lazy.Abp.Cms
             DateTime? createdAfter = null,
             DateTime? createdBefore = null,
             string filter = null,
-            bool includeDetails = false,
             int maxResultCount = 10,
             int skipCount = 0,
             string sorting = null,
             CancellationToken cancellationToken = default
         )
         {
-            var query = await GetListQuery(userId, hasFile, hasVideo, isFree, isActive, status, userCategoryId, createdAfter, createdBefore, filter, includeDetails);
+            var query = await GetListQuery(userId, hasFile, hasVideo, isFree, isActive, status, userCategoryId, createdAfter, createdBefore, filter);
 
             var list = await query.OrderBy(sorting ?? "creationTime desc")
                 .PageBy(skipCount, maxResultCount)
@@ -116,8 +130,7 @@ namespace Lazy.Abp.Cms
         )
         {
             return (await GetQueryableAsync())
-                .IncludeDetails(includeDetails)
-                .WhereIf(userId.HasValue, e => e.UserId == userId)
+                .WhereIf(userId.HasValue, e => e.CreatorId == userId)
                 .WhereIf(hasFile.HasValue, e => !string.IsNullOrEmpty(e.File))
                 .WhereIf(hasVideo.HasValue, e => !string.IsNullOrEmpty(e.Video))
                 .WhereIf(isFree.HasValue, e => e.IsFree == isFree)
