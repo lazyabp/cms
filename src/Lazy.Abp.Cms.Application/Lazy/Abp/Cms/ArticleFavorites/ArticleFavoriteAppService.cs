@@ -23,7 +23,7 @@ namespace Lazy.Abp.Cms.ArticleFavorites
             _articleRepository = articleRepository;
         }
 
-        public async Task<PagedResultDto<ArticleFavoriteDto>> GetListAsync(GetArticleFavoriteListRequestDto input)
+        public async Task<PagedResultDto<ArticleFavoriteDto>> GetListAsync(ArticleFavoriteListRequestDto input)
         {
             var totalCount = await _repository.GetCountAsync(CurrentUser.GetId(), null, input.Filter);
             var list = await _repository.GetListAsync(input.MaxResultCount, input.SkipCount, input.Sorting, CurrentUser.GetId(), null, input.Filter);

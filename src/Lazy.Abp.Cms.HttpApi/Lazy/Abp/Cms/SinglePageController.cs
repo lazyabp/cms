@@ -37,7 +37,7 @@ namespace Lazy.Abp.Cms
         }
 
         [HttpGet]
-        public Task<PagedResultDto<SinglePageDto>> GetListAsync(GetSinglePageListRequestDto input)
+        public Task<PagedResultDto<SinglePageDto>> GetListAsync(SinglePageListRequestDto input)
         {
             return _service.GetListAsync(input);
         }

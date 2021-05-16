@@ -30,20 +30,20 @@ namespace Lazy.Abp.Cms
         }
 
         [HttpGet]
-        public Task<PagedResultDto<UserCategoryDto>> GetListAsync(GetUserCategoryListRequestDto input)
+        public Task<PagedResultDto<UserCategoryDto>> GetListAsync(UserCategoryListRequestDto input)
         {
             return _service.GetListAsync(input);
         }
 
         [HttpPost]
-        public Task<UserCategoryDto> CreateAsync(CreateUpdateUserCategoryDto input)
+        public Task<UserCategoryDto> CreateAsync(UserCategoryCreateUpdateDto input)
         {
             return _service.CreateAsync(input);
         }
 
         [HttpPut]
         [Route("{id}")]
-        public Task<UserCategoryDto> UpdateAsync(Guid id, CreateUpdateUserCategoryDto input)
+        public Task<UserCategoryDto> UpdateAsync(Guid id, UserCategoryCreateUpdateDto input)
         {
             return _service.UpdateAsync(id, input);
         }

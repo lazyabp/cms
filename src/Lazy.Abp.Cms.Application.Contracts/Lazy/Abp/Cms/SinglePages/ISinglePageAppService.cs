@@ -13,6 +13,6 @@ namespace Lazy.Abp.Cms.SinglePages
 
         Task<SinglePageDto> GetByName(string name);
 
-        Task<PagedResultDto<SinglePageDto>> GetListAsync(GetSinglePageListRequestDto input);
+        Task<PagedResultDto<SinglePageDto>> GetListAsync(SinglePageListRequestDto input);
     }
 }

@@ -9,7 +9,7 @@ namespace Lazy.Abp.Cms.ArticleFavorites
 {
     public interface IArticleFavoriteAppService : IApplicationService, ITransientDependency
     {
-        Task<PagedResultDto<ArticleFavoriteDto>> GetListAsync(GetArticleFavoriteListRequestDto input);
+        Task<PagedResultDto<ArticleFavoriteDto>> GetListAsync(ArticleFavoriteListRequestDto input);
 
         Task DeleteAsync(Guid id);
     }

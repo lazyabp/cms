@@ -29,10 +29,10 @@ namespace Lazy.Abp.Cms.Admin
             CreateMap<Category, CategoryDto>();
 
             CreateMap<SinglePage, SinglePageDto>();
-            CreateMap<CreateUpdateSinglePageDto, SinglePage>(MemberList.Source);
+            CreateMap<SinglePageCreateUpdateDto, SinglePage>(MemberList.Source);
 
             CreateMap<Tag, TagDto>();
-            CreateMap<CreateUpdateTagDto, Tag>(MemberList.Source);
+            CreateMap<TagCreateUpdateDto, Tag>(MemberList.Source);
         }
     }
 }

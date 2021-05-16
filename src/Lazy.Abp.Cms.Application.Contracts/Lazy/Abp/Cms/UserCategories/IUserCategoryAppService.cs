@@ -11,11 +11,11 @@ namespace Lazy.Abp.Cms.UserCategories
     {
         Task<UserCategoryDto> GetAsync(Guid id);
 
-        Task<PagedResultDto<UserCategoryDto>> GetListAsync(GetUserCategoryListRequestDto input);
+        Task<PagedResultDto<UserCategoryDto>> GetListAsync(UserCategoryListRequestDto input);
 
-        Task<UserCategoryDto> CreateAsync(CreateUpdateUserCategoryDto input);
+        Task<UserCategoryDto> CreateAsync(UserCategoryCreateUpdateDto input);
 
-        Task<UserCategoryDto> UpdateAsync(Guid id, CreateUpdateUserCategoryDto input);
+        Task<UserCategoryDto> UpdateAsync(Guid id, UserCategoryCreateUpdateDto input);
 
         Task DeleteAsync(Guid id);
     }

@@ -11,7 +11,7 @@ namespace Lazy.Abp.Cms.ArticleSales
     {
         Task<ArticleSaleDto> GetAsync(Guid id);
 
-        Task<PagedResultDto<ArticleSaleDto>> GetListAsync(GetArticleSalesListRequestDto input);
+        Task<PagedResultDto<ArticleSaleDto>> GetListAsync(ArticleSalesListRequestDto input);
 
         Task DeleteAsync(Guid id);
     }

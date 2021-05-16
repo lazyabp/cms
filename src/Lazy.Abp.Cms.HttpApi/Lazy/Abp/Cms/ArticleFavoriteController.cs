@@ -23,7 +23,7 @@ namespace Lazy.Abp.Cms
         }
 
         [HttpGet]
-        public Task<PagedResultDto<ArticleFavoriteDto>> GetListAsync(GetArticleFavoriteListRequestDto input)
+        public Task<PagedResultDto<ArticleFavoriteDto>> GetListAsync(ArticleFavoriteListRequestDto input)
         {
             return _service.GetListAsync(input);
         }

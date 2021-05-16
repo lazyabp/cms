@@ -30,7 +30,7 @@ namespace Lazy.Abp.Cms.SinglePages
             return ObjectMapper.Map<SinglePage, SinglePageDto>(page);
         }
 
-        public async Task<PagedResultDto<SinglePageDto>> GetListAsync(GetSinglePageListRequestDto input)
+        public async Task<PagedResultDto<SinglePageDto>> GetListAsync(SinglePageListRequestDto input)
         {
             var totalCount = await _repository.GetCountAsync(input.CreatedAfter, input.CreatedBefore, input.Filter);
             var list = await _repository.GetListAsync(input.MaxResultCount, input.SkipCount, input.Sorting, input.CreatedAfter, input.CreatedBefore, input.Filter);

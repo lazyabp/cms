@@ -37,7 +37,7 @@ namespace Lazy.Abp.Cms.Articles
             return result;
         }
 
-        public async Task<PagedResultDto<ArticleDto>> GetListAsync(GetArticleListRequestDto input)
+        public async Task<PagedResultDto<ArticleDto>> GetListAsync(ArticleListRequestDto input)
         {
             var totalCount = await _repository.GetCountAsync(input.UserId, input.HasFile, input.HasVideo, input.IsFree, input.IsActive, input.Status,
                 input.UserCategoryId, input.CreatedAfter, input.CreatedBefore, input.Filter);
@@ -53,7 +53,7 @@ namespace Lazy.Abp.Cms.Articles
             );
         }
 
-        public async Task<PagedResultDto<ArticleDto>> GetListByTagAsync(GetArticleListByTagRequestDto input)
+        public async Task<PagedResultDto<ArticleDto>> GetListByTagAsync(ArticleListByTagRequestDto input)
         {
             if (!input.TagId.HasValue && input.Tag.IsNullOrEmpty())
                 throw new UserFriendlyException(L["MissingParameters"]);
@@ -78,7 +78,7 @@ namespace Lazy.Abp.Cms.Articles
             );
         }
 
-        public async Task<ArticleDto> CreateAsync(CreateUpdateArticleDto input)
+        public async Task<ArticleDto> CreateAsync(ArticleCreateUpdateDto input)
         {
             var article = new Article(GuidGenerator.Create(), CurrentTenant.Id, input.Title, 
                 input.Origin, input.Auth, input.Thumbnail, input.Descritpion, input.File, input.Video);
@@ -128,7 +128,7 @@ namespace Lazy.Abp.Cms.Articles
             return ObjectMapper.Map<Article, ArticleDto>(article);
         }
 
-        public async Task<ArticleDto> UpdateAsync(Guid id, CreateUpdateArticleDto input)
+        public async Task<ArticleDto> UpdateAsync(Guid id, ArticleCreateUpdateDto input)
         {
             var article = await _repository.GetByIdAsync(id, true);
 

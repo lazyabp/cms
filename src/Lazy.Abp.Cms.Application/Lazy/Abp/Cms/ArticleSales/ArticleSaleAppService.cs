@@ -29,7 +29,7 @@ namespace Lazy.Abp.Cms.ArticleSales
             return ObjectMapper.Map<ArticleSale, ArticleSaleDto>(result);
         }
 
-        public async Task<PagedResultDto<ArticleSaleDto>> GetListAsync(GetArticleSalesListRequestDto input)
+        public async Task<PagedResultDto<ArticleSaleDto>> GetListAsync(ArticleSalesListRequestDto input)
         {
             var totalCount = await _repository.GetCountAsync(CurrentUser.GetId(), input.ArticleId, 
                 input.IsPaid, input.PaidTimeAfter, input.PaidTimeBefore, input.Filter);

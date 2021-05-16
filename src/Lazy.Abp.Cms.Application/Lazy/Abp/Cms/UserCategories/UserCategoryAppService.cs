@@ -28,7 +28,7 @@ namespace Lazy.Abp.Cms.UserCategories
             return ObjectMapper.Map<UserCategory, UserCategoryDto>(category);
         }
 
-        public async Task<PagedResultDto<UserCategoryDto>> GetListAsync(GetUserCategoryListRequestDto input)
+        public async Task<PagedResultDto<UserCategoryDto>> GetListAsync(UserCategoryListRequestDto input)
         {
             var userId = input.UserId ?? CurrentUser.GetId();
 
@@ -42,7 +42,7 @@ namespace Lazy.Abp.Cms.UserCategories
         }
 
         [Authorize]
-        public async Task<UserCategoryDto> CreateAsync(CreateUpdateUserCategoryDto input)
+        public async Task<UserCategoryDto> CreateAsync(UserCategoryCreateUpdateDto input)
         {
             var category = new UserCategory(GuidGenerator.Create(), CurrentTenant.Id, CurrentUser.GetId(), input.Name, input.DisplayOrder);
             category = await _repository.InsertAsync(category);
@@ -51,7 +51,7 @@ namespace Lazy.Abp.Cms.UserCategories
         }
 
         [Authorize]
-        public async Task<UserCategoryDto> UpdateAsync(Guid id, CreateUpdateUserCategoryDto input)
+        public async Task<UserCategoryDto> UpdateAsync(Guid id, UserCategoryCreateUpdateDto input)
         {
             var category = await _repository.GetAsync(id);
 

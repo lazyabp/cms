@@ -11,13 +11,13 @@ namespace Lazy.Abp.Cms.Articles
     {
         Task<ArticleDto> GetAsync(Guid id);
 
-        Task<PagedResultDto<ArticleDto>> GetListAsync(GetArticleListRequestDto input);
+        Task<PagedResultDto<ArticleDto>> GetListAsync(ArticleListRequestDto input);
 
-        Task<PagedResultDto<ArticleDto>> GetListByTagAsync(GetArticleListByTagRequestDto input);
+        Task<PagedResultDto<ArticleDto>> GetListByTagAsync(ArticleListByTagRequestDto input);
 
-        Task<ArticleDto> CreateAsync(CreateUpdateArticleDto input);
+        Task<ArticleDto> CreateAsync(ArticleCreateUpdateDto input);
 
-        Task<ArticleDto> UpdateAsync(Guid id, CreateUpdateArticleDto input);
+        Task<ArticleDto> UpdateAsync(Guid id, ArticleCreateUpdateDto input);
 
         Task SetActiveAsync(Guid id, SetActiveRequestDto input);
 

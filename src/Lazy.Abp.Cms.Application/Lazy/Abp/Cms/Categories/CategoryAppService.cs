@@ -66,7 +66,7 @@ namespace Lazy.Abp.Cms.Categories
             return result;
         }
 
-        public async Task<PagedResultDto<CategoryDto>> GetListAsync(GetCategoryListRequestDto input)
+        public async Task<PagedResultDto<CategoryDto>> GetListAsync(CategoryListRequestDto input)
         {
             var totalCount = await _repository.GetCountAsync(input.ParentId, input.RootId, input.Filter);
             var list = await _repository.GetListAsync(input.MaxResultCount, input.SkipCount, input.Sorting, input.ParentId, input.RootId, input.Filter);

@@ -44,29 +44,29 @@ namespace Lazy.Abp.Cms.Articles
             return ObjectMapper.Map<ArticleContent, ArticleContentDto>(content);
         }
 
-        public Task<PagedResultDto<ArticleDto>> GetListAsync(GetArticleListRequestDto input)
+        public Task<PagedResultDto<ArticleDto>> GetListAsync(ArticleListRequestDto input)
         {
             return _articleCommonAppService.GetListAsync(input);
         }
 
         public Task<PagedResultDto<ArticleDto>> GetListByTagAsync(string tag)
         {
-            return _articleCommonAppService.GetListByTagAsync(new GetArticleListByTagRequestDto { Tag = tag });
+            return _articleCommonAppService.GetListByTagAsync(new ArticleListByTagRequestDto { Tag = tag });
         }
 
         public Task<PagedResultDto<ArticleDto>> GetListByTagIdAsync(Guid id)
         {
-            return _articleCommonAppService.GetListByTagAsync(new GetArticleListByTagRequestDto { TagId = id });
+            return _articleCommonAppService.GetListByTagAsync(new ArticleListByTagRequestDto { TagId = id });
         }
 
         [Authorize]
-        public Task<ArticleDto> CreateAsync(CreateUpdateArticleDto input)
+        public Task<ArticleDto> CreateAsync(ArticleCreateUpdateDto input)
         {
             return _articleCommonAppService.CreateAsync(input);
         }
 
         [Authorize]
-        public async Task<ArticleDto> UpdateAsync(Guid id, CreateUpdateArticleDto input)
+        public async Task<ArticleDto> UpdateAsync(Guid id, ArticleCreateUpdateDto input)
         {
             return await _articleCommonAppService.UpdateAsync(id, input);
         }

@@ -31,7 +31,7 @@ namespace Lazy.Abp.Cms
              * into multiple profile classes for a better organization. */
             CreateMap<Article, ArticleDto>();
             CreateMap<ArticleComment, ArticleCommentDto>();
-            CreateMap<CreateUpdateArticleCommentDto, ArticleComment>(MemberList.Source);
+            CreateMap<ArticleCommentCreateUpdateDto, ArticleComment>(MemberList.Source);
 
             CreateMap<ArticleMeta, ArticleMetaDto>();
             CreateMap<ArticleContent, ArticleContentDto>();
@@ -42,7 +42,7 @@ namespace Lazy.Abp.Cms
             CreateMap<ArticleLike, ArticleLikeDto>();
 
             CreateMap<ArticleSale, ArticleSaleDto>();
-            CreateMap<CreateUpdateArticleSaleDto, ArticleSale>(MemberList.Source);
+            CreateMap<ArticleSaleCreateUpdateDto, ArticleSale>(MemberList.Source);
 
             CreateMap<Category, CategoryDto>();
             CreateMap<Category, CategoryViewDto>();
@@ -56,7 +56,7 @@ namespace Lazy.Abp.Cms
             CreateMap<ArticleTag, ArticleTagDto>();
 
             CreateMap<UserCategory, UserCategoryDto>();
-            CreateMap<CreateUpdateUserCategoryDto, UserCategory>(MemberList.Source);
+            CreateMap<UserCategoryCreateUpdateDto, UserCategory>(MemberList.Source);
 
             CreateMap<ArticleAuditLog, ArticleAuditLogDto>();
         }

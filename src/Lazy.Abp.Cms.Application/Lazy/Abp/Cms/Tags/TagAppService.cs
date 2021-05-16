@@ -16,7 +16,7 @@ namespace Lazy.Abp.Cms.Tags
             _repository = repository;
         }
 
-        public async Task<PagedResultDto<TagDto>> GetListAsync(GetTagListRequestDto input)
+        public async Task<PagedResultDto<TagDto>> GetListAsync(TagListRequestDto input)
         {
             var totalCount = await _repository.GetCountAsync();
             var list = await _repository.GetListAsync(input.MaxResultCount, input.SkipCount, input.Sorting, input.Filter);

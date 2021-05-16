@@ -18,6 +18,6 @@ namespace Lazy.Abp.Cms.Categories
 
         Task<List<CategoryDto>> GetPathAsync(Guid id);
 
-        Task<PagedResultDto<CategoryDto>> GetListAsync(GetCategoryListRequestDto input);
+        Task<PagedResultDto<CategoryDto>> GetListAsync(CategoryListRequestDto input);
     }
 }

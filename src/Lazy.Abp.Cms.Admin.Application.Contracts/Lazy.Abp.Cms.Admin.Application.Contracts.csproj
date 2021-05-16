@@ -12,9 +12,5 @@
       <ProjectReference Include="..\Lazy.Abp.Cms.Application.Contracts\Lazy.Abp.Cms.Application.Contracts.csproj" />
       <PackageReference Include="Volo.Abp.Ddd.Application" Version="$(AbpVersion)" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="LazyAbp\Cms\Admin\Dtos\" />
-  </ItemGroup>
   
 </Project>

@@ -23,7 +23,7 @@ namespace Lazy.Abp.Cms
         }
 
         [HttpGet]
-        public Task<PagedResultDto<TagDto>> GetListAsync(GetTagListRequestDto input)
+        public Task<PagedResultDto<TagDto>> GetListAsync(TagListRequestDto input)
         {
             return _service.GetListAsync(input);
         }
