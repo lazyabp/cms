@@ -13,12 +13,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="5.0.5" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="5.0.*" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="LazyAbp\Cms\Localization\Cms\*.json" />
-    <Content Remove="LazyAbp\Cms\Localization\Cms\*.json" />
+    <EmbeddedResource Include="Lazy\Abp\Cms\Localization\Cms\*.json" />
+    <Content Remove="Lazy\Abp\Cms\Localization\Cms\*.json" />
   </ItemGroup>
 
 </Project>
