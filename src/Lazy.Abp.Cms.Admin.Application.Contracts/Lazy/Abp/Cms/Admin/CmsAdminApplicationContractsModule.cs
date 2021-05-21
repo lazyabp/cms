@@ -7,7 +7,10 @@ using Volo.Abp.VirtualFileSystem;
 
 namespace Lazy.Abp.Cms.Admin
 {
-    [DependsOn(typeof(CmsDomainSharedModule))]
+    [DependsOn(
+        typeof(CmsApplicationContractsModule),
+        typeof(CmsDomainSharedModule)
+        )]
     public class CmsAdminApplicationContractsModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)

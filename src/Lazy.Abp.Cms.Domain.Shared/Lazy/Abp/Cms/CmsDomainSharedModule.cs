@@ -25,7 +25,7 @@ namespace Lazy.Abp.Cms
                 options.Resources
                     .Add<CmsResource>("en")
                     .AddBaseTypes(typeof(AbpValidationResource))
-                    .AddVirtualJson("/LazyAbp/Cms/Localization");
+                    .AddVirtualJson("/LazyAbp/Cms/Localization/Cms");
             });
 
             Configure<AbpExceptionLocalizationOptions>(options =>
