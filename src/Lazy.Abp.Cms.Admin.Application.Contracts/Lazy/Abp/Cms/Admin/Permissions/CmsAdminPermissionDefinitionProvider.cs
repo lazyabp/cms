@@ -19,6 +19,9 @@ namespace Lazy.Abp.Cms.Admin.Permissions
             articlePermission.AddChild(CmsAdminPermissions.Article.Delete, L("Permission:Delete"));
             articlePermission.AddChild(CmsAdminPermissions.Article.Audit, L("Permission:Audit"));
 
+            var articleSalePermission = myGroup.AddPermission(CmsAdminPermissions.ArticleSale.Default, L("Permission:ArticleSale"));
+            articleSalePermission.AddChild(CmsAdminPermissions.ArticleSale.Delete, L("Permission:Delete"));
+
             var categoryPermission = myGroup.AddPermission(CmsAdminPermissions.Category.Default, L("Permission:Category"));
             categoryPermission.AddChild(CmsAdminPermissions.Category.Create, L("Permission:Create"));
             categoryPermission.AddChild(CmsAdminPermissions.Category.Update, L("Permission:Update"));

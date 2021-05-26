@@ -1,8 +1,6 @@
 using AutoMapper;
 using Lazy.Abp.Cms.ArticleAuditLogs;
 using Lazy.Abp.Cms.ArticleAuditLogs.Dtos;
-using Lazy.Abp.Cms.ArticleComments;
-using Lazy.Abp.Cms.ArticleComments.Dtos;
 using Lazy.Abp.Cms.ArticleFavorites;
 using Lazy.Abp.Cms.ArticleFavorites.Dtos;
 using Lazy.Abp.Cms.ArticleLikes;
@@ -30,8 +28,6 @@ namespace Lazy.Abp.Cms
              * Alternatively, you can split your mapping configurations
              * into multiple profile classes for a better organization. */
             CreateMap<Article, ArticleDto>();
-            CreateMap<ArticleComment, ArticleCommentDto>();
-            CreateMap<ArticleCommentCreateUpdateDto, ArticleComment>(MemberList.Source);
 
             CreateMap<ArticleMeta, ArticleMetaDto>();
             CreateMap<ArticleContent, ArticleContentDto>();
@@ -42,7 +38,6 @@ namespace Lazy.Abp.Cms
             CreateMap<ArticleLike, ArticleLikeDto>();
 
             CreateMap<ArticleSale, ArticleSaleDto>();
-            CreateMap<ArticleSaleCreateUpdateDto, ArticleSale>(MemberList.Source);
 
             CreateMap<Category, CategoryDto>();
             CreateMap<Category, CategoryViewDto>();

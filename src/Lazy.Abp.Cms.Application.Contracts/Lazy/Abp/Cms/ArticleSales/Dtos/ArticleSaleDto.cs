@@ -11,12 +11,10 @@ namespace Lazy.Abp.Cms.ArticleSales.Dtos
 
         public Guid ArticleId { get; set; }
 
-        public decimal SalePrice { get; set; }
+        public string OrderId { get; set; }
 
-        public string ArticleTitle { get; set; }
+        public decimal PaidAmount { get; set; }
 
-        public bool IsPaid { get; set; }
-
-        public DateTime? PaidTime { get; set; }
+        public ArticleDto Article { get; set; }
     }
 }

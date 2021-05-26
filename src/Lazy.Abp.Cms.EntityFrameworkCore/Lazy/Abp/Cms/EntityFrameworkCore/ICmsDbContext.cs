@@ -1,17 +1,15 @@
-using Microsoft.EntityFrameworkCore;
-using Volo.Abp.Data;
-using Volo.Abp.EntityFrameworkCore;
-using Lazy.Abp.Cms;
-using Lazy.Abp.Cms.Articles;
-using Lazy.Abp.Cms.ArticleComments;
+using Lazy.Abp.Cms.ArticleAuditLogs;
 using Lazy.Abp.Cms.ArticleFavorites;
 using Lazy.Abp.Cms.ArticleLikes;
+using Lazy.Abp.Cms.Articles;
 using Lazy.Abp.Cms.ArticleSales;
 using Lazy.Abp.Cms.Categories;
 using Lazy.Abp.Cms.SinglePages;
 using Lazy.Abp.Cms.Tags;
 using Lazy.Abp.Cms.UserCategories;
-using Lazy.Abp.Cms.ArticleAuditLogs;
+using Microsoft.EntityFrameworkCore;
+using Volo.Abp.Data;
+using Volo.Abp.EntityFrameworkCore;
 
 namespace Lazy.Abp.Cms.EntityFrameworkCore
 {
@@ -22,7 +20,6 @@ namespace Lazy.Abp.Cms.EntityFrameworkCore
          * DbSet<Question> Questions { get; }
          */
         DbSet<Article> Articles { get; set; }
-        DbSet<ArticleComment> ArticleComments { get; set; }
         DbSet<ArticlePicture> ArticlePictures { get; set; }
         DbSet<ArticleContent> ArticleContents { get; set; }
         DbSet<ArticleFavorite> ArticleFavorites { get; set; }

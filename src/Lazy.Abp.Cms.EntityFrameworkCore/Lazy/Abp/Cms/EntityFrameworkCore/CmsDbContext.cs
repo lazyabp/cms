@@ -1,5 +1,4 @@
 using Lazy.Abp.Cms.ArticleAuditLogs;
-using Lazy.Abp.Cms.ArticleComments;
 using Lazy.Abp.Cms.ArticleFavorites;
 using Lazy.Abp.Cms.ArticleLikes;
 using Lazy.Abp.Cms.Articles;
@@ -21,7 +20,6 @@ namespace Lazy.Abp.Cms.EntityFrameworkCore
          * public DbSet<Question> Questions { get; set; }
          */
         public DbSet<Article> Articles { get; set; }
-        public DbSet<ArticleComment> ArticleComments { get; set; }
         public DbSet<ArticlePicture> ArticlePictures { get; set; }
         public DbSet<ArticleContent> ArticleContents { get; set; }
         public DbSet<ArticleFavorite> ArticleFavorites { get; set; }

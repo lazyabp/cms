@@ -1,6 +1,4 @@
-using Lazy.Abp.Cms;
 using Lazy.Abp.Cms.ArticleAuditLogs;
-using Lazy.Abp.Cms.ArticleComments;
 using Lazy.Abp.Cms.ArticleFavorites;
 using Lazy.Abp.Cms.ArticleLikes;
 using Lazy.Abp.Cms.Articles;
@@ -29,7 +27,6 @@ namespace Lazy.Abp.Cms.EntityFrameworkCore
                  * options.AddRepository<Question, EfCoreQuestionRepository>();
                  */
                 options.AddRepository<Article, ArticleRepository>();
-                options.AddRepository<ArticleComment, ArticleCommentRepository>();
                 options.AddRepository<ArticleContent, ArticleContentRepository>();
                 options.AddRepository<ArticleFavorite, ArticleFavoriteRepository>();
                 options.AddRepository<ArticleLike, ArticleLikeRepository>();

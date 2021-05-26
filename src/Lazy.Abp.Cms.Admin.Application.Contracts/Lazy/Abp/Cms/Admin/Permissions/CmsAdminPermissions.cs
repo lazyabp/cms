@@ -23,6 +23,12 @@ namespace Lazy.Abp.Cms.Admin.Permissions
             public const string Audit = Default + ".Audit";
         }
 
+        public class ArticleSale
+        {
+            public const string Default = GroupName + ".ArticleSale";
+            public const string Delete = Default + ".Delete";
+        }
+
         public class Category
         {
             public const string Default = GroupName + ".Category";

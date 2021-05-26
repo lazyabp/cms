@@ -15,9 +15,10 @@ namespace Lazy.Abp.Cms.ArticleSales
         Task<long> GetCountAsync(
             Guid? userId = null,
             Guid? articleId = null,
-            bool? isPaid = null,
-            DateTime? paidAfther = null,
-            DateTime? paidBefore = null,
+            decimal? minPaidAmount = null,
+            decimal? maxPaidAmount = null,
+            DateTime? creationAfther = null,
+            DateTime? creationBefore = null,
             string filter = null,
             CancellationToken cancellationToken = default
         );
@@ -28,9 +29,10 @@ namespace Lazy.Abp.Cms.ArticleSales
             string sorting = null,
             Guid? userId = null,
             Guid? articleId = null,
-            bool? isPaid = null,
-            DateTime? paidAfther = null,
-            DateTime? paidBefore = null,
+            decimal? minPaidAmount = null,
+            decimal? maxPaidAmount = null,
+            DateTime? creationAfther = null,
+            DateTime? creationBefore = null,
             string filter = null,
             CancellationToken cancellationToken = default
         );

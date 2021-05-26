@@ -1,8 +1,5 @@
 using Lazy.Abp.Cms.Articles;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
@@ -16,7 +13,6 @@ namespace Lazy.Abp.Cms.ArticleLikes
 
         public bool LikeOrDislike { get; protected set; }
 
-        [ForeignKey("ArticleId")]
         public virtual Article Article { get; set; }
 
         protected ArticleLike()

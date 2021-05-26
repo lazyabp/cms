@@ -1,8 +1,5 @@
 using Lazy.Abp.Cms.Articles;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
@@ -10,22 +7,17 @@ namespace Lazy.Abp.Cms.ArticleSales
 {
     public class ArticleSale : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
-        public virtual Guid? TenantId { get; }
+        public virtual Guid? TenantId { get; protected set; }
 
-        public Guid UserId { get; protected set; }
+        public Guid UserId { get; private set; }
 
-        public Guid ArticleId { get; protected set; }
+        public Guid ArticleId { get; private set; }
 
-        public decimal SalePrice { get; protected set; }
+        public string OrderId { get; private set; }
 
-        public string ArticleTitle { get; protected set; }
+        public decimal PaidAmount { get; private set; }
 
-        public bool IsPaid { get; protected set; }
-
-        public DateTime? PaidTime { get; protected set; }
-
-        //[ForeignKey("ArticleId")]
-        //public Article Article { get; set; }
+        public virtual Article Article { get; set; }
 
         protected ArticleSale()
         {
@@ -35,23 +27,16 @@ namespace Lazy.Abp.Cms.ArticleSales
             Guid id,
             Guid? tenantId,
             Guid userId, 
-            Guid articleId, 
-            decimal salePrice, 
-            string articleTitle
+            Guid articleId,
+            string orderId,
+            decimal paidAmount
         ) : base(id)
         {
             TenantId = tenantId;
             UserId = userId;
             ArticleId = articleId;
-            SalePrice = salePrice;
-            ArticleTitle = articleTitle;
-            IsPaid = false;
-        }
-
-        public void SetAsPaid(DateTime paidTime)
-        {
-            IsPaid = true;
-            PaidTime = paidTime;
+            OrderId = orderId;
+            PaidAmount = paidAmount;
         }
     }
 }

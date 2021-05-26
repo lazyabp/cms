@@ -11,11 +11,13 @@ namespace Lazy.Abp.Cms.ArticleSales.Dtos
 
         public Guid? ArticleId { get; set; }
 
-        public bool? IsPaid { get; set; }
+        public decimal? MinPaidAmount { get; set; }
 
-        public DateTime? PaidTimeBefore { get; set; }
+        public decimal? MaxPaidAmount { get; set; }
 
-        public DateTime? PaidTimeAfter { get; set; }
+        public DateTime? CreationAfther { get; set; }
+
+        public DateTime? CreationBefore { get; set; }
 
         public string Filter { get; set; }
     }

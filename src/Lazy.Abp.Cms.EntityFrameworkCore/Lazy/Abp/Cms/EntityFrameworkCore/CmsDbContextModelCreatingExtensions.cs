@@ -1,18 +1,16 @@
-using Lazy.Abp.Cms;
-using System;
-using Microsoft.EntityFrameworkCore;
-using Volo.Abp;
-using Volo.Abp.EntityFrameworkCore.Modeling;
-using Lazy.Abp.Cms.Articles;
-using Lazy.Abp.Cms.ArticleComments;
+using Lazy.Abp.Cms.ArticleAuditLogs;
 using Lazy.Abp.Cms.ArticleFavorites;
 using Lazy.Abp.Cms.ArticleLikes;
+using Lazy.Abp.Cms.Articles;
 using Lazy.Abp.Cms.ArticleSales;
 using Lazy.Abp.Cms.Categories;
 using Lazy.Abp.Cms.SinglePages;
 using Lazy.Abp.Cms.Tags;
 using Lazy.Abp.Cms.UserCategories;
-using Lazy.Abp.Cms.ArticleAuditLogs;
+using Microsoft.EntityFrameworkCore;
+using System;
+using Volo.Abp;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 
 namespace Lazy.Abp.Cms.EntityFrameworkCore
 {
@@ -65,17 +63,6 @@ namespace Lazy.Abp.Cms.EntityFrameworkCore
                 b.HasMany(q => q.Logs).WithOne().HasForeignKey(x => x.ArticleId);
                 /* Configure more properties here */
             });
-
-
-            builder.Entity<ArticleComment>(b =>
-            {
-                b.ToTable(options.TablePrefix + "ArticleComments", options.Schema);
-                b.ConfigureByConvention();
-
-                b.HasIndex(q => q.ArticleId);
-                /* Configure more properties here */
-            });
-
 
             builder.Entity<ArticlePicture>(b =>
             {
