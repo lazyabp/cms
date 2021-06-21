@@ -37,6 +37,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lazy.Abp.Cms.Host.Shared", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lazy.Abp.Cms.Web.Unified", "host\Lazy.Abp.Cms.Web.Unified\Lazy.Abp.Cms.Web.Unified.csproj", "{947F43AD-76B8-4448-8931-1FEF2AD5BB1E}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lazy.Abp.Cms.HttpApi.Host", "host\Lazy.Abp.Cms.HttpApi.Host\Lazy.Abp.Cms.HttpApi.Host.csproj", "{8F3DBD1F-8FCD-4D83-ABDC-EA6DF85378FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -103,6 +105,10 @@ Global
 		{947F43AD-76B8-4448-8931-1FEF2AD5BB1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{947F43AD-76B8-4448-8931-1FEF2AD5BB1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{947F43AD-76B8-4448-8931-1FEF2AD5BB1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F3DBD1F-8FCD-4D83-ABDC-EA6DF85378FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F3DBD1F-8FCD-4D83-ABDC-EA6DF85378FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F3DBD1F-8FCD-4D83-ABDC-EA6DF85378FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F3DBD1F-8FCD-4D83-ABDC-EA6DF85378FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -123,6 +129,7 @@ Global
 		{E086413C-ABF3-4B30-9548-84016AF0DE14} = {649A3FFA-182F-4E56-9717-E6A9A2BEC545}
 		{180AD781-4572-4F73-8EB3-2F2BF916BF18} = {B8817937-21B2-425A-8774-744E3FDA526F}
 		{947F43AD-76B8-4448-8931-1FEF2AD5BB1E} = {B8817937-21B2-425A-8774-744E3FDA526F}
+		{8F3DBD1F-8FCD-4D83-ABDC-EA6DF85378FE} = {B8817937-21B2-425A-8774-744E3FDA526F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4324B3B4-B60B-4E3C-91D8-59576B4E26DD}
