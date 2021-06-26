@@ -31,30 +31,37 @@ namespace Lazy.Abp.Cms
         }
 
         [HttpGet]
+        [Route("{id}/path")]
+        public Task<List<CategoryViewDto>> GetPathAsync(Guid id)
+        {
+            return _service.GetPathAsync(id);
+        }
+
+        [HttpGet]
         [Route("by-parent-id/{id}")]
-        public Task<List<CategoryDto>> GetByParentAsync(Guid? id)
+        public Task<List<CategoryViewDto>> GetByParentAsync(Guid? id)
         {
             return _service.GetByParentAsync(id);
         }
 
         [HttpGet]
         [Route("by-root-id/{id}")]
-        public Task<List<CategoryDto>> GetByRootAsync(Guid? id)
+        public Task<List<CategoryViewDto>> GetByRootAsync(Guid? id)
         {
             return _service.GetByRootAsync(id);
         }
 
         [HttpGet]
-        public Task<PagedResultDto<CategoryDto>> GetListAsync(CategoryListRequestDto input)
+        [Route("list/all")]
+        public Task<ListResultDto<CategoryViewDto>> GetAll()
         {
-            return _service.GetListAsync(input);
+            return _service.GetAll();
         }
 
         [HttpGet]
-        [Route("{id}/path")]
-        public Task<List<CategoryDto>> GetPathAsync(Guid id)
+        public Task<PagedResultDto<CategoryViewDto>> GetListAsync(CategoryListRequestDto input)
         {
-            return _service.GetPathAsync(id);
+            return _service.GetListAsync(input);
         }
     }
 }

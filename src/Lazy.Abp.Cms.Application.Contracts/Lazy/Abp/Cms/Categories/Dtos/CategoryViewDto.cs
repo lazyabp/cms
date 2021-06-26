@@ -14,14 +14,6 @@ namespace Lazy.Abp.Cms.Categories.Dtos
 
         public Guid? ParentId { get; set; }
 
-        public Guid? RootId { get; set; }
-
-        public string Path { get; set; }
-
-        public string ListTemplateName { get; set; }
-
-        public string DetailTemplateName { get; set; }
-
         public int DisplayOrder { get; set; }
     }
 }

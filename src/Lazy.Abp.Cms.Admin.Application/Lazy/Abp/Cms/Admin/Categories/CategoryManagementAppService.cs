@@ -46,6 +46,9 @@ namespace Lazy.Abp.Cms.Admin.Categories
             }
 
             var category = new Category(id, input.Name, input.DisplayName, depth, input.ParentId, rootId, path, input.DisplayOrder);
+            category.SetListTemplateName(input.ListTemplateName);
+            category.SetDetailTemplateName(input.DetailTemplateName);
+
             category = await _repository.InsertAsync(category);
 
             return ObjectMapper.Map<Category, CategoryDto>(category);
@@ -73,9 +76,11 @@ namespace Lazy.Abp.Cms.Admin.Categories
             var oldParentId = category.ParentId;
 
             category.Update(input.Name, input.DisplayName, depth, input.ParentId, rootId, path, input.DisplayOrder);
+            category.SetListTemplateName(input.ListTemplateName);
+            category.SetDetailTemplateName(input.DetailTemplateName);
             category = await _repository.UpdateAsync(category);
 
-            // ���������ӷ���
+            // 修复子分类路径
             if (oldParentId != input.ParentId)
                 await UpdateChildTree(category);
 
@@ -101,7 +106,7 @@ namespace Lazy.Abp.Cms.Admin.Categories
                 }
 
                 await _repository.UpdateAsync(children);
-                // �ݹ����
+                // 递归
                 await UpdateChildTree(children);
             }
         }

@@ -13,12 +13,8 @@ namespace Lazy.Abp.Cms.Articles
 {
     public class ArticleRepository : EfCoreRepository<ICmsDbContext, Article, Guid>, IArticleRepository
     {
-        private readonly IArticleTagRepository _articleTagRepository;
-
-        public ArticleRepository(IDbContextProvider<ICmsDbContext> dbContextProvider, 
-            IArticleTagRepository articleTagRepository) : base(dbContextProvider)
+        public ArticleRepository(IDbContextProvider<ICmsDbContext> dbContextProvider) : base(dbContextProvider)
         {
-            _articleTagRepository = articleTagRepository;
         }
 
         public override async Task<IQueryable<Article>> WithDetailsAsync()
@@ -59,6 +55,7 @@ namespace Lazy.Abp.Cms.Articles
             bool? isFree = null,
             bool? isActive = null,
             AuditStatus? status = null,
+            Guid? categoryId = null,
             Guid? userCategoryId = null,
             DateTime? createdAfter = null,
             DateTime? createdBefore = null,
@@ -66,7 +63,7 @@ namespace Lazy.Abp.Cms.Articles
             CancellationToken cancellationToken = default
         )
         {
-            var query = await GetListQuery(userId, hasFile, hasVideo, isFree, isActive, status, userCategoryId, createdAfter, createdBefore, filter);
+            var query = await GetListQuery(userId, hasFile, hasVideo, isFree, isActive, status, categoryId, userCategoryId, createdAfter, createdBefore, filter);
 
             return await query.LongCountAsync(GetCancellationToken(cancellationToken));
         }
@@ -78,6 +75,7 @@ namespace Lazy.Abp.Cms.Articles
             bool? isFree = null,
             bool? isActive = null,
             AuditStatus? status = null,
+            Guid? categoryId = null,
             Guid? userCategoryId = null,
             DateTime? createdAfter = null,
             DateTime? createdBefore = null,
@@ -88,7 +86,7 @@ namespace Lazy.Abp.Cms.Articles
             CancellationToken cancellationToken = default
         )
         {
-            var query = await GetListQuery(userId, hasFile, hasVideo, isFree, isActive, status, userCategoryId, createdAfter, createdBefore, filter);
+            var query = await GetListQuery(userId, hasFile, hasVideo, isFree, isActive, status, categoryId, userCategoryId, createdAfter, createdBefore, filter);
 
             var list = await query.OrderBy(sorting ?? "creationTime desc")
                 .PageBy(skipCount, maxResultCount)
@@ -122,6 +120,7 @@ namespace Lazy.Abp.Cms.Articles
             bool? isFree = null,
             bool? isActive = null,
             AuditStatus? status = null,
+            Guid? categoryId = null,
             Guid? userCategoryId = null,
             DateTime? createdAfter = null,
             DateTime? createdBefore = null,
@@ -136,6 +135,7 @@ namespace Lazy.Abp.Cms.Articles
                 .WhereIf(isFree.HasValue, e => e.IsFree == isFree)
                 .WhereIf(isActive.HasValue, e => e.IsActive == isActive)
                 .WhereIf(status.HasValue, e => e.Status == status)
+                .WhereIf(categoryId.HasValue, e => e.Categories.Any(x => x.CategoryId == categoryId))
                 .WhereIf(userCategoryId.HasValue, e => e.UserCategoryId == userCategoryId)
                 .WhereIf(createdAfter.HasValue, e => e.CreationTime >= createdAfter)
                 .WhereIf(createdBefore.HasValue, e => e.CreationTime <= createdBefore)

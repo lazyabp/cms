@@ -19,6 +19,8 @@ namespace Lazy.Abp.Cms.Articles.Dtos
 
         public AuditStatus? Status { get; set; }
 
+        public Guid? CategoryId { get; set; }
+
         public Guid? UserCategoryId { get; set; }
 
         public DateTime? CreatedAfter { get; set; }

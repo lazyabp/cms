@@ -21,7 +21,6 @@ namespace Lazy.Abp.Cms.Articles
 
         public ArticleCommonAppService(IArticleRepository repository,
             ITagRepository tagRepository,
-            ICategoryRepository categoryRepository,
             IArticleAuditLogManager logManager)
         {
             _repository = repository;
@@ -39,11 +38,11 @@ namespace Lazy.Abp.Cms.Articles
 
         public async Task<PagedResultDto<ArticleDto>> GetListAsync(ArticleListRequestDto input)
         {
-            var totalCount = await _repository.GetCountAsync(input.UserId, input.HasFile, input.HasVideo, input.IsFree, input.IsActive, input.Status,
-                input.UserCategoryId, input.CreatedAfter, input.CreatedBefore, input.Filter);
+            var totalCount = await _repository.GetCountAsync(input.UserId, input.HasFile, input.HasVideo, input.IsFree, input.IsActive,
+                input.Status, input.CategoryId, input.UserCategoryId, input.CreatedAfter, input.CreatedBefore, input.Filter);
 
-            var list = await _repository.GetListAsync(input.UserId, input.HasFile, input.HasVideo, input.IsFree, input.IsActive, input.Status, 
-                input.UserCategoryId, input.CreatedAfter, input.CreatedBefore, input.Filter, input.MaxResultCount, input.SkipCount, input.Sorting);
+            var list = await _repository.GetListAsync(input.UserId, input.HasFile, input.HasVideo, input.IsFree, input.IsActive, input.Status,
+               input.CategoryId, input.UserCategoryId, input.CreatedAfter, input.CreatedBefore, input.Filter, input.MaxResultCount, input.SkipCount, input.Sorting);
 
             var items = ObjectMapper.Map<List<Article>, List<ArticleDto>>(list);
 

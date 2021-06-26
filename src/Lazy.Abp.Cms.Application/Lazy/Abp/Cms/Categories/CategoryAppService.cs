@@ -24,29 +24,29 @@ namespace Lazy.Abp.Cms.Categories
             return ObjectMapper.Map<Category, CategoryDto>(category);
         }
 
-        public async Task<List<CategoryDto>> GetByRootAsync(Guid? id)
+        public async Task<List<CategoryViewDto>> GetByRootAsync(Guid? id)
         {
             var categories = await _repository.GetByRootIdAsync(id);
 
-            return ObjectMapper.Map<List<Category>, List<CategoryDto>>(categories);
+            return ObjectMapper.Map<List<Category>, List<CategoryViewDto>>(categories);
         }
 
-        public async Task<List<CategoryDto>> GetByParentAsync(Guid? id)
+        public async Task<List<CategoryViewDto>> GetByParentAsync(Guid? id)
         {
             var categories = await _repository.GetByParentIdAsync(id);
 
-            return ObjectMapper.Map<List<Category>, List<CategoryDto>>(categories);
+            return ObjectMapper.Map<List<Category>, List<CategoryViewDto>>(categories);
         }
 
-        public async Task<List<CategoryDto>> GetPathAsync(Guid id)
+        public async Task<List<CategoryViewDto>> GetPathAsync(Guid id)
         {
             var category = await _repository.GetAsync(id);
-            var result = new List<CategoryDto>();
+            var result = new List<CategoryViewDto>();
             var path = new List<Guid>();
 
             if (category.Path.IsNullOrEmpty() || category.Path == id.ToString())
             {
-                result.Add(ObjectMapper.Map<Category, CategoryDto>(category));
+                result.Add(ObjectMapper.Map<Category, CategoryViewDto>(category));
 
                 return result;
             }
@@ -60,20 +60,33 @@ namespace Lazy.Abp.Cms.Categories
             foreach(var categoryId in path)
             {
                 var cat = categories.FirstOrDefault(x => x.Id == categoryId);
-                result.Add(ObjectMapper.Map<Category, CategoryDto>(cat));
+                result.Add(ObjectMapper.Map<Category, CategoryViewDto>(cat));
             }
 
             return result;
         }
 
-        public async Task<PagedResultDto<CategoryDto>> GetListAsync(CategoryListRequestDto input)
+        public async Task<ListResultDto<CategoryViewDto>> GetAll()
+        {
+            var categories = await _repository.GetListAsync(false);
+            categories = categories
+                .OrderBy(q => q.DisplayOrder)
+                .ThenBy(q => q.CreationTime)
+                .ToList();
+
+            var dtos = ObjectMapper.Map<List<Category>, List<CategoryViewDto>>(categories);
+
+            return new ListResultDto<CategoryViewDto>(dtos);
+        }
+
+        public async Task<PagedResultDto<CategoryViewDto>> GetListAsync(CategoryListRequestDto input)
         {
             var totalCount = await _repository.GetCountAsync(input.ParentId, input.RootId, input.Filter);
             var list = await _repository.GetListAsync(input.MaxResultCount, input.SkipCount, input.Sorting, input.ParentId, input.RootId, input.Filter);
 
-            return new PagedResultDto<CategoryDto>(
+            return new PagedResultDto<CategoryViewDto>(
                 totalCount,
-                ObjectMapper.Map<List<Category>, List<CategoryDto>>(list)
+                ObjectMapper.Map<List<Category>, List<CategoryViewDto>>(list)
             );
         }
     }

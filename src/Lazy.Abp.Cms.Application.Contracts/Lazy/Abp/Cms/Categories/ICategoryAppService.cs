@@ -12,12 +12,14 @@ namespace Lazy.Abp.Cms.Categories
     {
         Task<CategoryDto> GetAsync(Guid id);
 
-        Task<List<CategoryDto>> GetByRootAsync(Guid? id);
+        Task<List<CategoryViewDto>> GetByRootAsync(Guid? id);
 
-        Task<List<CategoryDto>> GetByParentAsync(Guid? id);
+        Task<List<CategoryViewDto>> GetByParentAsync(Guid? id);
 
-        Task<List<CategoryDto>> GetPathAsync(Guid id);
+        Task<List<CategoryViewDto>> GetPathAsync(Guid id);
 
-        Task<PagedResultDto<CategoryDto>> GetListAsync(CategoryListRequestDto input);
+        Task<ListResultDto<CategoryViewDto>> GetAll();
+
+        Task<PagedResultDto<CategoryViewDto>> GetListAsync(CategoryListRequestDto input);
     }
 }
