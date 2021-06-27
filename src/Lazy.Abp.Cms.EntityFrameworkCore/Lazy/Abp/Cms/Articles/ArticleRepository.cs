@@ -142,7 +142,7 @@ namespace Lazy.Abp.Cms.Articles
                 .WhereIf(!string.IsNullOrEmpty(filter),
                     e => false
                     || e.Title.Contains(filter)
-                    || e.Descritpion.Contains(filter)
+                    || e.Description.Contains(filter)
                 );
         }
 

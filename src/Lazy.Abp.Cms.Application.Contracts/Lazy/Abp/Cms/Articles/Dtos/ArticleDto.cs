@@ -16,7 +16,7 @@ namespace Lazy.Abp.Cms.Articles.Dtos
 
         public string Thumbnail { get; set; }
 
-        public string Descritpion { get; set; }
+        public string Description { get; set; }
 
         public string File { get; set; }
 
@@ -43,6 +43,8 @@ namespace Lazy.Abp.Cms.Articles.Dtos
         public int CommentCount { get; set; }
 
         public int SaleCount { get; set; }
+
+        public DateTime RealTime { get; set; }
 
         public bool IsActive { get; set; }
 

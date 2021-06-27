@@ -15,7 +15,7 @@ namespace Lazy.Abp.Cms.Articles.Dtos
 
         public string Thumbnail { get; set; }
 
-        public string Descritpion { get; set; }
+        public string Description { get; set; }
 
         public string File { get; set; }
 
@@ -29,6 +29,8 @@ namespace Lazy.Abp.Cms.Articles.Dtos
 
         public bool IsActive { get; set; }
 
+        public AuditStatus? Status { get; set; }
+
         public string TemplateName { get; set; }
 
         public int HitCount { get; set; }
@@ -41,7 +43,7 @@ namespace Lazy.Abp.Cms.Articles.Dtos
 
         public int SaleCount { get; set; }
 
-        public DateTime? CreationTime { get; set; }
+        public DateTime? RealTime { get; set; }
 
         public ArticleMetaCreateUpdateDto Meta { get; set; }
 

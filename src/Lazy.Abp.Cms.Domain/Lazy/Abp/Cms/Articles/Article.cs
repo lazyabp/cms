@@ -30,7 +30,7 @@ namespace Lazy.Abp.Cms.Articles
         public virtual string Thumbnail { get; protected set; }
 
         [MaxLength(ArticleConsts.MaxDescritpionLength)]
-        public virtual string Descritpion { get; protected set; }
+        public virtual string Description { get; protected set; }
 
         [MaxLength(ArticleConsts.MaxFileLength)]
         public virtual string File { get; protected set; }
@@ -78,6 +78,8 @@ namespace Lazy.Abp.Cms.Articles
         /// </summary>
         public virtual int SaleCount { get; protected set; }
 
+        public virtual DateTime RealTime { get; protected set; }
+
         public virtual bool IsActive { get; protected set; }
 
         public virtual AuditStatus Status { get; protected set; }
@@ -105,7 +107,7 @@ namespace Lazy.Abp.Cms.Articles
             string origin,
             string auth,
             string thumbnail,
-            string descritpion,
+            string description,
             string file,
             string video
         ) : base(id)
@@ -115,7 +117,7 @@ namespace Lazy.Abp.Cms.Articles
             Origin = origin;
             Auth = auth;
             Thumbnail = thumbnail;
-            Descritpion = descritpion;
+            Description = description;
             File = file;
             Video = video;
             IsFree = true;
@@ -131,7 +133,7 @@ namespace Lazy.Abp.Cms.Articles
             string origin,
             string auth,
             string thumbnail,
-            string descritpion,
+            string description,
             string file,
             string video
         )
@@ -140,14 +142,14 @@ namespace Lazy.Abp.Cms.Articles
             Origin = origin;
             Auth = auth;
             Thumbnail = thumbnail;
-            Descritpion = descritpion;
+            Description = description;
             File = file;
             Video = video;
         }
 
-        public void SetCreationTime(DateTime dateTime)
+        public void SetRealTime(DateTime dateTime)
         {
-            CreationTime = dateTime;
+            RealTime = dateTime;
         }
 
         /// <summary>
@@ -225,7 +227,7 @@ namespace Lazy.Abp.Cms.Articles
 
         public void SetContent(string shortDescritpion, string fullDescription)
         {
-            if (null != Content)
+            if (null == Content)
                 Content = new ArticleContent(Id, shortDescritpion, fullDescription);
             else
                 Content.Update(shortDescritpion, fullDescription);

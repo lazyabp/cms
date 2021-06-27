@@ -80,7 +80,7 @@ namespace Lazy.Abp.Cms.Articles
         public async Task<ArticleDto> CreateAsync(ArticleCreateUpdateDto input)
         {
             var article = new Article(GuidGenerator.Create(), CurrentTenant.Id, input.Title, 
-                input.Origin, input.Auth, input.Thumbnail, input.Descritpion, input.File, input.Video);
+                input.Origin, input.Auth, input.Thumbnail, input.Description, input.File, input.Video);
 
             article.SetHits(input.HitCount);
             article.SetLikes(input.LikeCount);
@@ -91,11 +91,16 @@ namespace Lazy.Abp.Cms.Articles
             article.SetTemplateName(input.TemplateName);
             article.SetActive(input.IsActive);
 
-            if (input.CreationTime.HasValue)
-                article.SetCreationTime(input.CreationTime.Value);
+            if (input.RealTime.HasValue)
+                article.SetRealTime(input.RealTime.Value);
+            else
+                article.SetRealTime(Clock.Now);
 
             if (input.UserCategoryId.HasValue)
                 article.SetUserCategory(input.UserCategoryId.Value);
+
+            if (input.Status.HasValue)
+                article.SetAuditStatus(input.Status.Value);
 
             article.SetMeta(input.Meta?.MetaTitle, input.Meta?.Keywords, input.Meta?.MetaDescription);
             article.SetContent(input.Content?.ShortDescription, input.Content?.FullDescription);
@@ -131,7 +136,7 @@ namespace Lazy.Abp.Cms.Articles
         {
             var article = await _repository.GetByIdAsync(id, true);
 
-            article.Update(input.Title, input.Origin, input.Auth, input.Thumbnail, input.Descritpion, input.File, input.Video);
+            article.Update(input.Title, input.Origin, input.Auth, input.Thumbnail, input.Description, input.File, input.Video);
             article.SetHits(input.HitCount);
             article.SetLikes(input.LikeCount);
             article.SetDislikes(input.DislikeCount);
@@ -142,11 +147,14 @@ namespace Lazy.Abp.Cms.Articles
 
             article.SetTemplateName(input.TemplateName);
 
-            if (input.CreationTime.HasValue)
-                article.SetCreationTime(input.CreationTime.Value);
+            if (input.RealTime.HasValue)
+                article.SetRealTime(input.RealTime.Value);
 
             if (input.UserCategoryId.HasValue)
                 article.SetUserCategory(input.UserCategoryId.Value);
+
+            if (input.Status.HasValue)
+                article.SetAuditStatus(input.Status.Value);
 
             article.SetMeta(input.Meta?.MetaTitle, input.Meta?.Keywords, input.Meta?.MetaDescription);
             article.SetContent(input.Content?.ShortDescription, input.Content?.FullDescription);

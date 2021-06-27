@@ -106,7 +106,7 @@ namespace Lazy.Abp.Cms.ArticleLikes
                 .WhereIf(!string.IsNullOrEmpty(filter),
                     e => false
                     || e.Article.Title.Contains(filter)
-                    || e.Article.Descritpion.Contains(filter)
+                    || e.Article.Description.Contains(filter)
                 );
         }
     }
