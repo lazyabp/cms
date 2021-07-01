@@ -8,7 +8,7 @@ namespace Lazy.Abp.Cms.Permissions
     {
         public override void Define(IPermissionDefinitionContext context)
         {
-            var myGroup = context.AddGroup(CmsPermissions.GroupName, L("Permission:Cms"));
+            var myGroup = context.AddGroup(CmsPermissions.GroupName, L("Permission:CmsAdmin"));
 
             var userCategoryPermission = myGroup.AddPermission(CmsPermissions.UserCategory.Default, L("Permission:UserCategory"));
             userCategoryPermission.AddChild(CmsPermissions.UserCategory.Create, L("Permission:Create"));

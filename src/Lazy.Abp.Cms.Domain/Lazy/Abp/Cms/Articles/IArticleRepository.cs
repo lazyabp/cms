@@ -13,6 +13,8 @@ namespace Lazy.Abp.Cms.Articles
 
         Task<Article> GetByIdAsync(Guid id, bool includeLogs = false, CancellationToken cancellationToken = default);
 
+        Task<List<Article>> GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken = default);
+
         Task<List<Article>> GetListByTagAsync(
             Guid tagId,
             bool? isActive = null,

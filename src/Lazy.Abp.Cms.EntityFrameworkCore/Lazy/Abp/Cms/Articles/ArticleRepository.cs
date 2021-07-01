@@ -48,6 +48,13 @@ namespace Lazy.Abp.Cms.Articles
                 .FirstOrDefaultAsync(GetCancellationToken(cancellationToken));
         }
 
+        public async Task<List<Article>> GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken = default)
+        {
+            return await (await GetDbSetAsync())
+                .Where(q => ids.Contains(q.Id))
+                .ToListAsync(GetCancellationToken(cancellationToken));
+        }
+
         public async Task<long> GetCountAsync(
             Guid? userId = null,
             bool? hasFile = null,
